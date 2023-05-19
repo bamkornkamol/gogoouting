@@ -1,5 +1,7 @@
 <template>
-    <div class="container w-11/12">
+<div>
+    <NavbarAll></NavbarAll>
+    <div class="container w-11/12 mt-5">
         <div class="grid grid-cols-2 gap-6">
             <div class="bg-neutral-400 justify-center content-center items-center flex flex-col p-20 rounded-2xl">
                 <p class="text-8xl mb-12">TAXI</p>
@@ -33,4 +35,15 @@
             </div>
         </div>
     </div>
+</div>
 </template>
+
+<script>
+import NavbarAll from '../components/NavbarAll.vue'
+
+export default {
+    components: {
+        NavbarAll
+    }
+}
+</script>
