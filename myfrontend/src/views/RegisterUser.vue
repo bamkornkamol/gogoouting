@@ -34,11 +34,17 @@
                 <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
                 <br><br>
             </div>
-            <a href="/templates/login_user.html" onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+            <router-link to="/login_user">
+                <a onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+            </router-link>
             <br><br>
-            <a href="/templates/login_user.html" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับเข้าสู้หน้าเข้าสู่ระบบ</a>
+            <router-link to="/login_user">
+                <a class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับเข้าสู้หน้าเข้าสู่ระบบ</a>
+            </router-link>
             <br>
-            <a href="/templates/select_admin_user.html" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
+            <router-link to="/selectadminuser">
+                <a class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
+            </router-link>
         </div>
     </div>
 </template>
