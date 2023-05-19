@@ -15,11 +15,17 @@
             </div>
             <br><br>
             <div class="grid grid-cols-2 flex justify-end">
-                <a :href="'/RegisterUser/${}'" class="bg-zinc-400 hover:bg-zinc-600 text-white font-bold text-center py-2 px-2 rounded-full left-2">ยังไม่มีบัญชีผู้ใช้?</a>
-                <a href="/views/AllHome.vue" class="bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-5 rounded-full ml-6">เข้าสู่ระบบ</a>
+                <router-link to="/register_user">
+                    <a class="bg-zinc-400 hover:bg-zinc-600 text-white font-bold text-center py-2 px-2 rounded-full left-2">ยังไม่มีบัญชีผู้ใช้?</a>
+                </router-link>
+                <router-link to="/home">
+                    <a class="bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-5 rounded-full ml-6">เข้าสู่ระบบ</a>
+                </router-link>
             </div>
             <br><br>
-            <a href="/views/SelectAdminUser.vue" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
+            <router-link to="/selectadminuser">
+                <a class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
+            </router-link>
         </div>
 
         <div class="h-screen bg-orange-400">
