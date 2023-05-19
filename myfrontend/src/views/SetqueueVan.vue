@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="grid grid-cols-3 h-screen">
+    <div class="grid grid-cols-3 h-screen">
         <div class=" justify-center content-center items-center flex flex-col">
             <div>
                 <label class="" for="">สถานที่ปลายทาง :</label>
@@ -63,15 +63,14 @@
 </template>
 
 <script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            r_van: round,
-            ary: [{
-                'place': '',
-                'time': '',
-                'price': ''
-            }]
+    export default {
+        data() {
+            return {
+                r_van: '',
+                place: '',
+                time: '',
+                price: ''
+            }
         },
         methods: {
             addRound(){
@@ -88,5 +87,5 @@
             },
 
         },
-        })
+    }
 </script>

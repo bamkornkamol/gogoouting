@@ -44,6 +44,26 @@ const routes = [
     name: 'googlemap',
     component: () => import('./views/GoogleMap.vue')
   },
+  {
+    path: '/setqueuevin',
+    name: 'Setqueue',
+    component: () => import('./views/SetqueueVin.vue')
+  },
+  {
+    path: '/setqueuevan',
+    name: 'Setqueue',
+    component: () => import('./views/SetqueueVan.vue')
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: () => import('./views/AllHome.vue')
+  },
+  {
+    path: '/favplace',
+    name: 'Favplace',
+    component: () => import('./views/FavPlace.vue')
+  },
 ]
 
 const router = new VueRouter({

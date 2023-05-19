@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="justify-center content-center items-center flex flex-col">
+    <div class="justify-center content-center items-center flex flex-col">
         <br><br>
         <div class="mb-20">
             <div @click="check = !check; " v-if="check == true" class=" justify-center content-center items-center flex flex-col">
@@ -26,21 +26,19 @@
 </template>
 
 <script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            'id': "001",
-            'firstname': "นางชุติมณฑน์",
-            'last_name': "เลิศคุณวงส์",
-            'sex': "หญิง",
-            'phone': "084-5671235",
-            'brand': "Kawasaki",
-            'image': 'https://cdn.discordapp.com/attachments/859670322160599051/1080918715585015868/5.jpeg',
-            'check': true,
-            'lo': 'RNP'
-        },
-        methods: {
-
-        },
-        })
+    export default {
+        data() {
+            return {
+                'id': "001",
+                'firstname': "นางชุติมณฑน์",
+                'last_name': "เลิศคุณวงส์",
+                'sex': "หญิง",
+                'phone': "084-5671235",
+                'brand': "Kawasaki",
+                'image': 'https://cdn.discordapp.com/attachments/859670322160599051/1080918715585015868/5.jpeg',
+                'check': true,
+                'lo': 'RNP'
+            }
+        }
+    }
 </script>
