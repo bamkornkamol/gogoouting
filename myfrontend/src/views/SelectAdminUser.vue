@@ -7,15 +7,21 @@
     <div class="grid grid-cols-3 gap-48">
         <div class="justify-center content-center items-center flex flex-col">
             <img class="w-80" src="https://cdn.discordapp.com/attachments/859670322160599051/1081094817859252265/user.png" alt=""> <br>
-            <a href="/templates/login_user.html" class="justify-center content-center items-center flex flex-col bg-white hover:bg-zinc-400 text-zinc-700 font-semibold hover:text-white py-2 px-4 border rounded-3xl w-36 h-16 text-center text-xl" >ผู้ใช้</a>
+            <router-link to="/login_user">
+                <a class="justify-center content-center items-center flex flex-col bg-white hover:bg-zinc-400 text-zinc-700 font-semibold hover:text-white py-2 px-4 border rounded-3xl w-36 h-16 text-center text-xl" >ผู้ใช้</a>
+            </router-link>
         </div>
         <div class="justify-center content-center items-center flex flex-col">
             <img class="w-80" src="https://cdn.discordapp.com/attachments/859670322160599051/1081094817645338714/rider.png" alt=""> <br>
-            <a href="/templates/login_riders.html" class="justify-center content-center items-center flex flex-col bg-white hover:bg-zinc-400 text-zinc-700 font-semibold hover:text-white py-2 px-4 border rounded-3xl w-36 h-16 text-center text-xl">พี่วิน</a>
+            <router-link to="/login_riders">
+                <a class="justify-center content-center items-center flex flex-col bg-white hover:bg-zinc-400 text-zinc-700 font-semibold hover:text-white py-2 px-4 border rounded-3xl w-36 h-16 text-center text-xl">พี่วิน</a>
+            </router-link>
         </div>
         <div class="justify-center content-center items-center flex flex-col">
             <img class="w-80" src="https://cdn.discordapp.com/attachments/859670322160599051/1081094817439825960/driver.png" alt=""> <br>
-            <a href="/templates/login_van.html" class="justify-center content-center items-center flex flex-col bg-white hover:bg-zinc-400 text-zinc-700 font-semibold hover:text-white py-2 px-4 border rounded-3xl w-36 h-16 text-center text-xl">พี่รถตู้</a>
+            <router-link to="/login_van">
+                <a class="justify-center content-center items-center flex flex-col bg-white hover:bg-zinc-400 text-zinc-700 font-semibold hover:text-white py-2 px-4 border rounded-3xl w-36 h-16 text-center text-xl">พี่รถตู้</a>
+            </router-link>
         </div>
     </div>
 </body>

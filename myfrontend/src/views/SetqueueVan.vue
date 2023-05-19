@@ -57,7 +57,9 @@
               </tbody>
             </table>
             <br><br><br>
-            <a href="/templates/login_van.html" onclick="" class="bg-rose-400 text-white font-bold py-2 px-5 rounded-full ml-6">ออกจากระบบ</a>
+            <router-link to="/login_van">
+                <a onclick="" class="bg-rose-400 text-white font-bold py-2 px-5 rounded-full ml-6">ออกจากระบบ</a>
+            </router-link>
         </div>
     </div>
 </template>

@@ -20,7 +20,9 @@
 
         <br><br>
 
-        <a href="/views/LoginRiders.vue" onclick="" class="bg-rose-400 text-white font-bold py-2 px-5 rounded-full">ออกจากระบบ</a>
+        <router-link to="/login_riders">
+            <a onclick="" class="bg-rose-400 text-white font-bold py-2 px-5 rounded-full">ออกจากระบบ</a>
+        </router-link>
     </div>
 
 </template>
