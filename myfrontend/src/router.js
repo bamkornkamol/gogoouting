@@ -64,6 +64,16 @@ const routes = [
     name: 'Favplace',
     component: () => import('./views/FavPlace.vue')
   },
+  {
+    path: '/van',
+    name: 'Van',
+    component: () => import('./views/VanVan.vue')
+  },
+  {
+    path: '/vin',
+    name: 'Vin',
+    component: () => import('./views/VinVin.vue')
+  },
 ]
 
 const router = new VueRouter({
