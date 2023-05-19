@@ -1,5 +1,7 @@
 <template>
-    <div class="text-center">
+    <div>
+        <NavbarAll></NavbarAll>
+        <div class="text-center">
         <img class="p-10 w-80 h-80 block ml-auto mr-auto" src="https://cdn.discordapp.com/attachments/859670322160599051/1080817457649954906/kid.png" alt="">
         <p class="p-8 text-center tracking-widest text-2xl text-gray-400">Bio...</p>
         <button class="tracking-widest bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Edit Profile</button>
@@ -19,4 +21,15 @@
             <p class="tracking-widest">ที่อยู่ :</p>
         </div>
     </div>
+    </div>
 </template>
+
+<script>
+import NavbarAll from '../components/NavbarAll.vue'
+
+export default {
+    components: {
+        NavbarAll
+    }
+}
+</script>

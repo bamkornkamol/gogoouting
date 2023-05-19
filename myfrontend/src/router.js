@@ -5,9 +5,14 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/calprice',
     name: 'Home',
     component: () => import('./views/CalPrice.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('./views/RegisterUser.vue')
   },
 ]
 

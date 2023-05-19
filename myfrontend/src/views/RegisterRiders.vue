@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-2 h-screen">
+        <div class="grid grid-cols-2 h-screen">
         <div class="bg-orange-400" >
         </div>
         <div class="h-full p-8 justify-center content-center items-center flex flex-col">
@@ -68,17 +68,13 @@
                 <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
                 <br><br>
             </div>
-            <a href="/templates/login.html" onclick="success_regis()" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+            <a href="/views/LoginRiders.vue" onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             <br><br>            
-            <a href="/templates/login_riders.html" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับเข้าสู้หน้าเข้าสู่ระบบ</a>
+            <a href="/views/LoginRiders.vue" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับเข้าสู้หน้าเข้าสู่ระบบ</a>
             <br>
-            <a href="/templates/select_admin_user.html" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
+            <a href="/views/SelectAdminUser.vue" class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
         </div>
     </div>
 </template>
 
-<script>
-    function success_regis() {
-        alert('สร้างบัญชีผู้ใช้สำเร็จ')
-    }
-</script>
+
