@@ -1,6 +1,5 @@
 <template>
     <div>
-        <NavbarAll></NavbarAll>
         <body class="bg-orange-400 justify-center content-center items-center flex flex-col">
     <h1 class="text-white font-extrabold text-8xl text-left p-12">Go Go Outing !!</h1>
     <h3 class="indent-10 text-slate-100" style="width: 900px;">ปัจจุบันมีนักศึกษาที่อยู่หอพักโดยไม่มีรถส่วนตัวเป็นจำนวนมากจึงส่งผลให้ค่อนข้างมีปัญหาในเรื่องของการเดินทางไปยังสถานศึกษาหรือที่ต่างๆ เนื่องจากมีจำนวนมอเตอร์ไซค์รับจ้างที่ไม่เพียงพอหรือในบางครั้งเกิดปัญหาไม่มีมอเตอร์ไซค์รับจ้างในจุดนั้นๆทำให้เกิดการเดินไปแล้วเสียเวลาเปล่าหรืออาจต้องเดินหาไปอย่างไร้จุดหมาย และยังพบปัญหาเมื่ออยู่ข้างนอกว่าไม่รู้จะไปไหนบ่อยครั้ง</h3>
@@ -22,13 +21,3 @@
 </body>
     </div>
 </template>
-
-<script>
-import NavbarAll from '../components/NavbarAll.vue'
-
-export default {
-    components: {
-        NavbarAll
-    }
-}
-</script>

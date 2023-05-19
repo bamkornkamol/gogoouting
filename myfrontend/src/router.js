@@ -74,6 +74,11 @@ const routes = [
     name: 'Vin',
     component: () => import('./views/VinVin.vue')
   },
+  {
+    path: '/selectadminuser',
+    name: 'select',
+    component: () => import('./views/SelectAdminUser.vue')
+  },
 ]
 
 const router = new VueRouter({
