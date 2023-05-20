@@ -8,7 +8,7 @@ router = express.Router();
 router.get('/home', async(req, res) => {
     try {
         const [data] = await pool.query(
-            "select * from suggestion_place s join images i on (s.id = i.place_id)"
+            "select * from suggestion_place s join images i on (s.id = i.place_id) join category c on (s.category_id = c.id)"
         )
 
         return res.json(data)
@@ -21,7 +21,7 @@ router.get('/sugplace/:category', async(req, res) => {
     const category = req.params.category
     try {
         const [data] = await pool.query(
-            "select * from suggestion_place s join images i on (s.id = i.place_id) where category_id = ?",
+            "select * from suggestion_place s join images i on (s.id = i.place_id) join category c on (s.category_id = c.id) where category_id = ?",
             [category]
         )
         return res.json(data)
