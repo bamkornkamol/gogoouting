@@ -2,9 +2,8 @@ const express = require("express");
 const path = require("path")
 const pool = require("../config");
 const multer = require('multer');
-const { router } = require("./index_admin");
 
-router = express.Router();
+const router = express.Router();
 
 router.get('/vin/profile/:vinId', async(req, res) => {
     const vinId = req.params.vinId
