@@ -5,8 +5,10 @@
     <!-- dialog -->
 
     <!-- Temperature -->
-    <div class="bg-neutral-400 rounded-2xl text-center w-11/12 h-96 justify-center content-center items-center flex flex-col">
-      <h1 class="text-6xl">33°</h1>
+    <div class="justify-center content-center items-center flex flex-col">
+      <div class="bg-neutral-400 rounded-2xl text-center w-11/12 h-96 justify-center content-center items-center flex flex-col">
+        <h1 class="text-6xl">33°</h1>
+      </div>
     </div>
 
     <!-- Category -->

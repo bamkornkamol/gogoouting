@@ -17,8 +17,8 @@
             <router-link to="/googlemap">
                 <a class="text-white hover:bg-neutral-700 hover:text-white rounded-md px-3 py-2 text-2sm font-medium">หาสถานที่ใกล้ฉัน</a>
             </router-link>
-            <router-link to="/favplace">
-                <a class="text-white hover:bg-neutral-700 hover:text-white rounded-md px-3 py-2 text-2sm font-medium float-right">ประวัติการถูกใจ</a>
+            <router-link to="/profile">
+                <a class="text-white hover:bg-neutral-700 hover:text-white rounded-md px-3 py-2 text-2sm font-medium float-right">โปรไฟล์</a>
             </router-link>
             <router-link to="/login_user">
                 <a class="text-white hover:bg-neutral-700 hover:text-white rounded-md px-3 py-2 text-2sm font-medium float-right">ออกจากระบบ</a>

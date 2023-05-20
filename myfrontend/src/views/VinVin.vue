@@ -75,7 +75,16 @@
     import NavbarAll from '../components/NavbarAll.vue'
     export default {
         components: {
-        NavbarAll
-    },
+          NavbarAll
+        },
+        data () {
+          return {
+            people: people,
+            show_modal: false,
+            lo:['RNP', 'Billian', 'AJ Park', 'เกกี', 'ประตูข้างวิศวะ', '3 แยกวิศวะ', 'คณะวิทย์', 'FBT', 'จินดา', 'ตลาดสุวรรณภูมิ'],
+            sta: "",
+            show: [],
+          },
+        },
     }
 </script>
