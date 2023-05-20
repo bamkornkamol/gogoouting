@@ -5,6 +5,7 @@
         <div class="h-full p-8 justify-center content-center items-center flex flex-col">
             <h1 class="text-5xl font-semibold text-center tracking-wide">Register</h1> <br>
             <h3 class="text-zinc-500">สร้างบัญชีสำหรับผู้ใช้</h3>
+
             <div class="p-8 content-left w-full">
                 <div class="grid grid-cols-3">
                     <label class="font-semibold text-xl" for="">คำนำหน้าชื่อ :</label>
@@ -17,25 +18,42 @@
                         <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นางสาว</label>
                     </div>
                 </div> <br>
-                <label class="font-semibold text-xl" for="">ชื่อ :</label>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">ชื่อ :</label>
+                    <br>
+                    <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if="joiValidationErrors.firstname">
+                        <br>
+                        <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
-                <label class="font-semibold text-xl" for="">นามสกุล :</label>
+
+
+                <div>
+                    <label class="font-semibold text-xl" for="">นามสกุล :</label>
+                    <br>
+                    <input :class="{'text-red-600' : joiValidationErrors.lastname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if="joiValidationErrors.lastname">
+                        <br>
+                        <span :key="index" v-if="joiValidationErrors.lastName.has('string.justalpha')" class="text-red-600"></span>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
+
                 <label class="font-semibold text-xl" for="">อีเมล :</label>
                 <br>
                 <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
                 <br><br>
+
                 <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
                 <br>
                 <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
                 <br><br>
             </div>
-            <router-link to="/login_user">
-                <a onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+            <router-link to="">
+                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
             <router-link to="/login_user">
@@ -48,3 +66,61 @@
         </div>
     </div>
 </template>
+
+<script>
+    import Vue from 'vue';
+    import vueJoiValidation, {Joi} from 'vue-joi-validation';
+
+    const options = {
+        extend: {
+            base: Joi.string(),
+            name: 'string',
+            language: {
+                justalpha: 'just alphabetic allowed ',
+            },
+            rules: [{
+                name: 'justalpha',
+                validate(params, value, contextState, options) {
+                    let regPattern = new RegExp('^[a-zA-Z]*$');
+                    if (!regPattern.test(value)) {
+                            return this.createError('string.justalpha', {}, contextState, options);
+                        }
+                        return value; // Everything is OK
+                    }
+                }]
+            }
+    };
+    Vue.use(vueJoiValidation,options);
+
+
+    export default {
+        data() {
+            return {
+                firstname: '',
+                lastname: '',
+                email: '',
+                pass: ''
+            }
+        },
+        validations: {
+            joiValidationSchemaObject() {
+                return this.$joi.object({
+                    firstname: this.$joi.string().alphanum().required().min(5).max(100),
+                    lastname: this.$joi.string().alphanum().required().min(5).max(100),
+                    email: this.$joi.required()
+                })
+            }
+        },
+        methods: {
+            submit() {
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    let formData = new FormData();
+                    formData.append("firstname", this.firstname);
+                    formData.append("lastname", this.lastname);
+                }
+            }
+        }
+        
+    }
+</script>

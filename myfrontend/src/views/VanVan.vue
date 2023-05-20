@@ -21,7 +21,7 @@
           <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
             ดูเลย !!
           </button> <br><br><br>
-          <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
+          <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-3xl">
             รายการจองทั้งหมด
           </button>
         </div>
@@ -55,5 +55,10 @@ export default {
   components: {
     NavbarAll,
   },
+  test(){
+          var status = document.getElementById('locations').value;
+          this.sta = status;
+          console.log(this.sta);
+        }
 };
 </script>

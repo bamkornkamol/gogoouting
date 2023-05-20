@@ -87,6 +87,7 @@
         },
         data() {
           return {
+<<<<<<< HEAD
             vin:null,
             show_modal: false,
             show: [],
@@ -183,5 +184,20 @@
             }
           }
         }
+=======
+<<<<<<< Updated upstream
+            
+          };
+        },
+=======
+            people: 'people',
+            show_modal: false,
+            lo:['RNP', 'Billian', 'AJ Park', 'เกกี', 'ประตูข้างวิศวะ', '3 แยกวิศวะ', 'คณะวิทย์', 'FBT', 'จินดา', 'ตลาดสุวรรณภูมิ'],
+            sta: "",
+            show: [],
+          }
+        }
+>>>>>>> Stashed changes
+>>>>>>> 5e3e580404cd27c29d08bd5d60786fc1280fa42e
     }
 </script>
