@@ -3,37 +3,30 @@
     <NavbarAll></NavbarAll>
     <br /><br />
 
-    <h1 class="text-8xl">รอบรถตู้วันนี้ !!</h1>
-    <br /><br />
+    <h1 class="text-8xl text-center">รอบรถตู้วันนี้ !!</h1>
+    <br><br>
     <div class="container">
       <div id="app" class="grid grid-cols-3">
-        <div class="justify-center content-center items-center flex flex-col">
-          <p>วันนี้จะไปไหน ?</p>
-          <br />
-          <select
-            class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="locations"
-            name="loca"
-          >
+
+        <div class="grid grid-rows-3 justify-center content-center items-center flex flex-center">
+          <p class="text-center">วันนี้จะไปไหน ?</p>
+          <select class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="locations" name="loca">
             <option value="">กดเพื่อเลือก</option>
             <option value="ฟิวเจอร์">ฟิวเจอร์</option>
             <option value="อนุสาวรีย์">อนุสาวรีย์</option>
             <option value="ซีคอน">ซีคอน</option>
             <option value="มีนบุรี">มีนบุรี</option>
           </select>
-          <br />
-          <button
-            id="ttest"
-            @click="test()"
-            class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full"
-          >
+          <br> <br>
+          <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
             ดูเลย !!
+          </button> <br><br><br>
+          <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
+            รายการจองทั้งหมด
           </button>
         </div>
 
-        <div
-          class="col-span-2 justify-center content-center items-center flex flex-col"
-        >
+        <div class="col-span-2 text-center content-center items-center flex flex-col">
           <table class="table-auto">
             <thead>
               <tr>
