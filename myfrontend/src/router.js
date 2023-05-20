@@ -79,6 +79,16 @@ const routes = [
     name: 'select',
     component: () => import('./views/SelectAdminUser.vue')
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('./views/ProFile.vue')
+  },
+  {
+    path: '/placedetail',
+    name: 'placedetail',
+    component: () => import('./views/PlaceDetail.vue')
+  },
 ]
 
 const router = new VueRouter({
