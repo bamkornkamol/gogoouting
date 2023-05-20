@@ -5,6 +5,19 @@ const multer = require('multer')
 
 router = express.Router();
 
+// multer =================================================================================
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './static/uploads') // path to save file
+    },
+    filename: function (req, file, callback) {
+        // set file name
+        callback(null, file.originalname)
+    }
+})
+const upload = multer({ storage: storage })
+// multer ================================================================================= 
+
 router.post('/favplace/:userId', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {

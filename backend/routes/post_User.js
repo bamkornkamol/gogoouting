@@ -36,7 +36,7 @@ router.post('/register', upload.single('img'), async(req, res) => {
     await conn.beginTransaction()
 
     try {
-        const [data] = await pool.query("insert into user(frist_name, last_name, password, email) values (?, ?, ?, ?)",
+        const [data] = await pool.query("insert into users(frist_name, last_name, password, email) values (?, ?, ?, ?)",
         [fname, lname, password, email])
 
         const userId = data[0].insertId
@@ -47,7 +47,7 @@ router.post('/register', upload.single('img'), async(req, res) => {
         )
 
         conn.commit()
-        res.status(200).send('register success')
+        res.status(200).send('success')
     }catch(err){
         await conn.rollback()
         console.log(err)
@@ -68,6 +68,8 @@ router.post('/fav/:placeId/:userId', upload.single(), async(req, res) => {
     try{
         const [data] = await pool.query("insert into fav_place (place_id, user_id) values (?, ?)", [place, user])
 
+        conn.commit()
+        res.status(200).send('success')
     }catch(err){
         await conn.rollback()
         console.log(err)
@@ -92,8 +94,9 @@ router.post('/bookVan/:userId', upload.single('img'), async(req, res) => {
 
     const conn = await pool.getConnection()
     await conn.beginTransaction()
+
     try{
-        const [data] = await pool.query("insert into bookVan (user_id, round_van_id) values (?,?)", [userId, round])
+        const [data] = await pool.query("insert into book_van (user_id, round_van_id) values (?,?)", [userId, round])
 
         const bookId = data[0].insertId
 
@@ -102,8 +105,11 @@ router.post('/bookVan/:userId', upload.single('img'), async(req, res) => {
             [bookId, file.path.substr(6).replaceAll("\\", "/")]
         )
 
+        await pool.query("update round_van set amount = ? where id = ?",
+        [round[0].amount-1, round])
+
         conn.commit()
-        res.status(200).send('register success')
+        res.status(200).send('success')
     }catch(err){
         await conn.rollback()
         console.log(err)
@@ -119,16 +125,17 @@ router.post('/review/:placeId/:userId', upload.single(), async(req, res) => {
     const placeId = req.params.placeId
     const userId = req.params.userId
     const review = req.body.review
+    const star = req.body.star
     
     const conn = await pool.getConnection()
     await conn.beginTransaction()
 
     try{
-        const [data] = await pool.query("insert into reviews(review, place_id, user_id, like) values (?,?,?,0)",
-        [review, placeId, userId])
+        const [data] = await pool.query("insert into reviews(review, place_id, rate, user_id, like) values (?,?,?,?,0)",
+        [review, placeId, star, userId])
 
         conn.commit()
-        res.status(200).send('register success')
+        res.status(200).send('success')
     }catch(err){
         await conn.rollback()
         console.log(err)
