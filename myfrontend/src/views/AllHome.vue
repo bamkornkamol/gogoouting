@@ -15,7 +15,7 @@
     <h1 class="text-center text-5xl font-semibold m-16">วันนี้ไปไหนดี?</h1>
     <div class="h-20 w-screen">
         <div class="sm:ml-6 sm:block">
-          <div class="flex space-x-10 h-15 justify-center content-center items-center flex flex-row">
+          <div class="flex space-x-10 h-15  justify-center content-center items-center flex flex-row">
                 <a @click="filter('ทั้งหมด')" class="text-black hover:bg-neutral-800 hover:text-white rounded-md px-3 py-2 text-2sm font-medium">ทั้งหมด</a>
                 <a @click="filter('หอพัก')" class="text-black hover:bg-neutral-800 hover:text-white rounded-md px-3 py-2 text-2sm font-medium">หอพัก</a>
                 <a @click="filter('คาเฟ่')" class="text-black hover:bg-neutral-800 hover:text-white rounded-md px-3 py-2 text-2sm font-medium">คาเฟ่</a>
@@ -64,11 +64,6 @@
   defer
   src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
 ></script>
-<style>
-    * {
-      font-family: 'Prompt', sans-serif;
-    }
-</style>
 <script>
 
 import NavbarAll from "../components/NavbarAll.vue";

@@ -57,7 +57,7 @@ router.get('/vin/:location', async(req, res) => {
             `select * from rider_info r 
             join images i 
             on (r.rider_info_id = i.rider_id) 
-            where rider_location = ?`, [location])
+            where r.location = ?`, [location])
         return res.json(data)
     }catch(err){
         console.log(err)

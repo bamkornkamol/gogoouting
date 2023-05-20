@@ -42,10 +42,10 @@ router.post('/register/vin', upload.single('img'), async(req, res) => {
     try{
         const [data] = await pool.query(
             `insert into rider_info (fname, lname, sex, phone, location, model, bike_id, status, password)
-            values (?, ?, ?, ?, ?, ?, ?, 0, ?)`,
+            values (?, ?, ?, ?, ?, ?, ?, '0', ?)`,
             [fname, lname, sex, phone, location, model, bike_id, password])
 
-        const riderId = data[0].insertId
+        const riderId = data.insertId
 
         const [data2] = await pool.query("insert into images (rider_id, image_file_path) values (?, ?)",
         [riderId, file.path.substr(6).replaceAll("\\", "/")])
