@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import 'bulma/css/bulma.css'
-import Vuelidate from 'vuelidate'
+import vuelidate from 'vuelidate'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuelidate)
+Vue.use(vuelidate)
 
 new Vue({
   router,

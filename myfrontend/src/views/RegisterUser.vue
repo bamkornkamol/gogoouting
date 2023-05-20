@@ -22,10 +22,12 @@
                 <div>
                     <label class="font-semibold text-xl" for="">ชื่อ :</label>
                     <br>
-                    <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template v-if="joiValidationErrors.firstname">
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.firstname.$model" :class="{'border-rose-500 border-solid border': $v.firstname.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.firstname.$error">
                         <br>
-                        <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span>
+                        <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.firstname.required">This field is required</p>
                     </template>
                 </div>
                 <br>
@@ -34,10 +36,11 @@
                 <div>
                     <label class="font-semibold text-xl" for="">นามสกุล :</label>
                     <br>
-                    <input :class="{'text-red-600' : joiValidationErrors.lastname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template v-if="joiValidationErrors.lastname">
+                    <input v-model="$v.lastname.$model" :class="{'border-rose-500 border-solid border' : $v.lastname.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.lastname.$error">
                         <br>
-                        <span :key="index" v-if="joiValidationErrors.lastName.has('string.justalpha')" class="text-red-600"></span>
+                        <!-- <span :key="index" v-if="joiValidationErrors.lastName.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.lastname.required">This field is required</p>
                     </template>
                 </div>
                 <br>
@@ -53,7 +56,7 @@
                 <br><br>
             </div>
             <router-link to="">
-                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+                <a class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
             <router-link to="/login_user">
@@ -68,30 +71,31 @@
 </template>
 
 <script>
-    import Vue from 'vue';
-    import vueJoiValidation, {Joi} from 'vue-joi-validation';
+    // import Vue from 'vue';
+    // import vueJoiValidation, {Joi} from 'vue-joi-validation';
 
-    const options = {
-        extend: {
-            base: Joi.string(),
-            name: 'string',
-            language: {
-                justalpha: 'just alphabetic allowed ',
-            },
-            rules: [{
-                name: 'justalpha',
-                validate(params, value, contextState, options) {
-                    let regPattern = new RegExp('^[a-zA-Z]*$');
-                    if (!regPattern.test(value)) {
-                            return this.createError('string.justalpha', {}, contextState, options);
-                        }
-                        return value; // Everything is OK
-                    }
-                }]
-            }
-    };
-    Vue.use(vueJoiValidation,options);
+    // const options = {
+    //     extend: {
+    //         base: Joi.string(),
+    //         name: 'string',
+    //         language: {
+    //             justalpha: 'just alphabetic allowed ',
+    //         },
+    //         rules: [{
+    //             name: 'justalpha',
+    //             validate(params, value, contextState, options) {
+    //                 let regPattern = new RegExp('^[a-zA-Z]*$');
+    //                 if (!regPattern.test(value)) {
+    //                         return this.createError('string.justalpha', {}, contextState, options);
+    //                     }
+    //                     return value; // Everything is OK
+    //                 }
+    //             }]
+    //         }
+    // };
+    // Vue.use(vueJoiValidation,options);
 
+    import { required } from 'vuelidate/lib/validators'
 
     export default {
         data() {
@@ -103,23 +107,29 @@
             }
         },
         validations: {
-            joiValidationSchemaObject() {
-                return this.$joi.object({
-                    firstname: this.$joi.string().alphanum().required().min(5).max(100),
-                    lastname: this.$joi.string().alphanum().required().min(5).max(100),
-                    email: this.$joi.required()
-                })
+            // joiValidationSchemaObject() {
+            //     return this.$joi.object({
+            //         firstname: this.$joi.string().alphanum().required().min(5).max(100),
+            //         lastname: this.$joi.string().alphanum().required().min(5).max(100),
+            //         email: this.$joi.required()
+            //     })
+            // }
+            firstname: {
+                required
+            }, 
+            lastname: {
+                required
             }
         },
         methods: {
-            submit() {
-                this.$v.$touch();
-                if (!this.$v.$invalid) {
-                    let formData = new FormData();
-                    formData.append("firstname", this.firstname);
-                    formData.append("lastname", this.lastname);
-                }
-            }
+            // submit() {
+            //     this.$v.$touch();
+            //     if (!this.$v.$invalid) {
+            //         let formData = new FormData();
+            //         formData.append("firstname", this.firstname);
+            //         formData.append("lastname", this.lastname);
+            //     }
+            // }
         }
         
     }
