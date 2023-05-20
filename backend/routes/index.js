@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path")
 const pool = require("../config");
 const multer = require('multer');
-const { router } = require("./del_User");
 
 router = express.Router();
 
