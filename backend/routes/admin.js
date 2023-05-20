@@ -313,7 +313,7 @@ router.delete('/round/delete/:roundId', async(req, res) => {
     await conn.beginTransaction()
 
     try {
-        const [data] = await pool.query("delete from round_van where id = ?", [roundId])
+        const [data] = await pool.query("delete from round_van where round_van_id = ?", [roundId])
 
         conn.commit()
         res.status(200).send('success')

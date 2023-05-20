@@ -1,0 +1,78 @@
+images
+- id int(11) AI PK UQ NN
+- image_file_path varchar(255)
+- user_id int(11) FK
+- rider_id int(11) FK
+- van_id int(11) FK
+- place_id int(11) FK
+
+user
+- id int(11) AI PK UQ NN
+- first_name varchar(255)
+- last_name varchar(255)
+- email varchar(255)
+- password char(50)
+
+fav_place
+- id int(11) AI PK UQ NN
+- place_id int(11) FK
+- user_id int(11) FK
+
+book_van
+- id int(11) AI PK UQ NN
+- user_id int(11) FK
+- round_van_id int(11) FK
+
+payment_img
+- id int(11) AI PK UQ NN
+- image_file_path varchar(255)
+- book_id int(11) FK
+
+reviews
+- id int(11) AI PK UQ NN
+- review text
+- place_id int(11) FK
+- rate int(11)
+- user_id int(11) FK
+- like int(11)
+
+rider_info
+- rider_info_id int(11) AI PK UQ NN
+- fname varchar(255)
+- lname varchar(255)
+- sex ENUM('male', 'female')
+- phone varchar(10)
+- location ENUM('RNP', 'Billian', 'AJ Park', 'เกกี', 'ประตูข้างวิศวะ', '3 แยกวิศวะ', 'คณะวิทย์', 'FBT',  'จินดา', 'ตลาดนัดสุวรรณภูมิ')
+- model varchar(255)
+- bike_id varchar(255)
+- status ENUM(1, 0)
+- password char(50)
+
+van_info
+- van_info_id int(11) AI PK UQ NN
+- fname varchar(255)
+- lname varchar(255)
+- sex ENUM('male', 'female')
+- phone varchar(10)
+- password char(50)
+
+round_van
+- round_van_id int(11) AI PK UQ NN
+- location ENUM('Future Park', 'อนุสาวรีย์', 'ซีคอนสแควร์', 'มีนบุรี')
+- price int(11)
+- seat int(11)
+- date date
+- time char(100)
+- van_id int(11) FK
+- create_by int(11)
+- create_time timestamp
+
+suggestion_place
+- id int(11) AI PK UQ NN
+- place_name varchar(255)
+- place_location text
+- category_id int(11) FK
+
+category
+- id int(11) AI PK UQ NN
+- name  varchar(255)

@@ -36,8 +36,8 @@ router.post('/favplace/:userId', upload.single('img'), async(req, res) => {
     await conn.beginTransaction()
 
     try{
-        const [data] = await pool.query("insert into suggestion_place(place_name, place_location, category_id, user_id) values (?,?,?,?)",
-        [p_name, location, category, userId])
+        const [data] = await pool.query("insert into suggestion_place(place_name, place_location, category_id) values (?,?,?)",
+        [p_name, location, category])
 
         const place_id = data[0].insertId
 
