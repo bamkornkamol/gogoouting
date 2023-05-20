@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 // multer ================================================================================= 
 
-router.post('/favplace/:userId', upload.single('img'), async(req, res) => {
+router.post('/favplace', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {
         const error = new Error("Please upload file");
@@ -27,7 +27,6 @@ router.post('/favplace/:userId', upload.single('img'), async(req, res) => {
         return res.json(error)
     }
 
-    const userId = req.params.userId
     const p_name = req.body.place_name
     const location = req.body.location
     const category = req.body.category
@@ -39,7 +38,7 @@ router.post('/favplace/:userId', upload.single('img'), async(req, res) => {
         const [data] = await pool.query("insert into suggestion_place(place_name, place_location, category_id) values (?,?,?)",
         [p_name, location, category])
 
-        const place_id = data[0].insertId
+        const place_id = data.insertId
 
         await pool.query(
             `insert into images(place_id, image_file_path) values(?, ?);`,
