@@ -36,10 +36,10 @@ router.post('/register', upload.single('img'), async(req, res) => {
     await conn.beginTransaction()
 
     try {
-        const [data] = await pool.query("insert into users(frist_name, last_name, password, email) values (?, ?, ?, ?)",
+        const [data] = await pool.query("insert into user(first_name, last_name, password, email) values (?, ?, ?, ?)",
         [fname, lname, password, email])
 
-        const userId = data[0].insertId
+        const userId = data.insertId
 
         await pool.query(
             `insert into images(user_id, image_file_path) values(?, ?);`,

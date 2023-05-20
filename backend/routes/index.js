@@ -69,7 +69,7 @@ router.get('/vin/detail/:id', async(req, res) => {
     try{
         const [data] = await pool.query(
             `select * from rider_info r 
-            join driver_all d
+            join rider_info d
             using (rider_info_id)
             join images i 
             on (r.rider_info_id = i.rider_id) 
@@ -81,18 +81,17 @@ router.get('/vin/detail/:id', async(req, res) => {
 })
 
 router.get('/van/:location', async(req, res) => {
-    const location = req.body.location
+    const location = req.params.location
     try{
         const [data] = await pool.query(
             `select * from round_van r 
-            join van_info v using(round_van_id) 
-            join driver_all d on (v.van_info_id = d.van_info_id) 
+            join van_info v on(r.create_by = v.van_info_id) 
             where location = ?`, [location])
         return res.json(data)
     }catch(err){
         console.log(err)
     }
-})
+})  
 
 router.get('/profile/:userId', async(req, res) => {
     const userId = req.body.userId

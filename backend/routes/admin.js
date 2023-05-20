@@ -86,10 +86,10 @@ router.post('/register/van', upload.single('img'), async(req, res) => {
             values (?, ?, ?, ?, ?)`,
             [fname, lname, sex, phone, password])
 
-        const vanId = data[0].insertId
+        const vanId = data.insertId
 
         const [data2] = await pool.query("insert into images (van_id, image_file_path) values (?, ?)",
-        [riderId, file.path.substr(6).replaceAll("\\", "/")])
+        [vanId, file.path.substr(6).replaceAll("\\", "/")])
 
         conn.commit()
         res.status(200).send('success')
@@ -248,8 +248,8 @@ router.put('/setvin/:vinId', async(req, res) => {
     }
 })
 
-router.post('/setround/:vanId', upload.single(), async(res, req) => {
-    const vanId = req.params.vanId
+router.post('/setround/:drivId', upload.single(), async(res, req) => {
+    const vanId = req.params.drivId
 
     const location = req.body.location
     const time = req.body.time

@@ -9,36 +9,39 @@
           <select name="locations" id="locations"
             class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
             <option value="">กดเพื่อเลือก</option>
-            <option @click="location('RNP')" value="RNP">RNP</option>
-            <option @click="location('Billian')" value="Billian">Billian</option>
-            <option @click="location('AJPark')" value="AJPark">AJ Park</option>
-            <option @click="location('เกกี')" value="เกกี">เกกี</option>
-            <option @click="location('ประตูข้างวิศวะ')" value="ประตูข้างวิศวะ">ประตูข้างวิศวะ</option>
-            <option @click="location('3แยกวิศวะ')" value="3แยกวิศวะ">3 แยกวิศวะ</option>
-            <option @click="location('คณะวิทย์')" value="คณะวิทย์">คณะวิทย์</option>
-            <option @click="location('FBT')" value="FBT">FBT</option>
-            <option @click="location('จินดา')" value="จินดา">จินดา</option>
-            <option @click="location('ตลาดนัดสุวรรณภูมิ'); test()" value="ตลาดนัดสุวรรณภูมิ">ตลาดนัดสุวรรณภูมิ</option>
+            <option value="RNP">RNP</option>
+            <option value="Billian">Billian</option>
+            <option value="AJPark">AJ Park</option>
+            <option value="เกกี">เกกี</option>
+            <option value="ประตูข้างวิศวะ">ประตูข้างวิศวะ</option>
+            <option value="3แยกวิศวะ">3 แยกวิศวะ</option>
+            <option value="คณะวิทย์">คณะวิทย์</option>
+            <option value="FBT">FBT</option>
+            <option value="จินดา">จินดา</option>
+            <option value="ตลาดนัดสุวรรณภูมิ">ตลาดนัดสุวรรณภูมิ</option>
           </select>
           <br>
           <button id="ttest" @click="location(test())" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
             ดูเลย !!
         </button>
         </div>
-
-          <div class="col-span-2 p-12 p grid gap-3 grid-cols-5">
-            
-            <div v-for="vin in vin" :key="vin">
-                <!-- <div v-if="vin.lo == sta"> -->
+        
+          <div class="col-span-2 p-12 grid grid-row-2">
+            <p class="text-3xl mb-5">{{test()}}</p>
+            <div class="grid gap-3 grid-cols-5">
+              <div v-for="vin in vin" :key="vin">
                     <div @click="show_modal = !show_modal; show.push(vin);" v-if="vin.status == '0'" class="bg-emerald-600 rounded-lg h-36 justify-center content-center items-center flex flex-col">
-                      <img class="w-9/12 rounded-full" :src="'http://localhost:3000/' + vin.image_file_path" alt="">
+                      <div class="w-9/12 h-28 overflow-hidden rounded-full">
+                        <img class="w-full" :src="'http://localhost:3000/' + vin.image_file_path" alt="">
+                      </div>
                     </div>
                     <div @click="show_modal = !show_modal; show.push(vin);" v-if="vin.status == '1'" class="rounded-lg bg-rose-600 h-36 justify-center content-center items-center flex flex-col">
-                      <img class="w-9/12 rounded-full" :src="'http://localhost:3000/' + vin.image_file_path" alt="">
+                      <div class="w-9/12 h-28 overflow-hidden rounded-full">
+                        <img class="w-full" :src="'http://localhost:3000/' + vin.image_file_path" alt="">
+                      </div>
                     </div>
-                <!-- </div> -->
+              </div>
             </div>
-
           </div>
 
           <div class="modal" v-bind:class="{'is-active':show_modal}">
