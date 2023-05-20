@@ -68,7 +68,7 @@
                 <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
                 <br><br>
             </div>
-            <router-link to="/register_riders">
+            <router-link to="/login_riders">
                 <a onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
