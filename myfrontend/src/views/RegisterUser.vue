@@ -45,15 +45,26 @@
                 </div>
                 <br>
 
-                <label class="font-semibold text-xl" for="">อีเมล :</label>
+                <div>
+                    <label class="font-semibold text-xl" for="">อีเมล :</label>
+                    <br>
+                    <input v-model="$v.email.$model" :class="{'border-rose-500 border-solid border' : $v.email.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template>
+                        <p class="text-rose-500" v-if="!$v.email.required">This field is required</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
 
-                <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
+                <div>
+                    <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
+                    <br>
+                    <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border' : $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template>
+                        <p class="text-rose-500" v-if="!$v.pass.required">This field is required</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
+
             </div>
             <router-link to="">
                 <a class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
@@ -95,7 +106,7 @@
     // };
     // Vue.use(vueJoiValidation,options);
 
-    import { required } from 'vuelidate/lib/validators'
+    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
     export default {
         data() {
@@ -115,10 +126,16 @@
             //     })
             // }
             firstname: {
-                required
+                required, minLength: minLength(5), maxLength:maxLength(100)
             }, 
             lastname: {
-                required
+                required, minLength: minLength(5), maxLength:maxLength(100)
+            },
+            email: {
+                required, minLength: minLength(5), maxLength: maxLength(100)
+            },
+            pass: {
+                required, minLength: minLength(5)
             }
         },
         methods: {
