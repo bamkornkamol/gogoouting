@@ -7,17 +7,19 @@
             <h3 class="text-zinc-500">สร้างบัญชีสำหรับผู้ใช้</h3>
 
             <div class="p-8 content-left w-full">
+
                 <div class="grid grid-cols-3">
                     <label class="font-semibold text-xl" for="">คำนำหน้าชื่อ :</label>
                     <div class="flex items-center">
-                        <input type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input v-model="sex" type="radio" :value="true" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นาย</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input v-model="sex" type="radio" :value="false" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นางสาว</label>
                     </div>
-                </div> <br>
+                </div>
+                <br>
 
                 <div>
                     <label class="font-semibold text-xl" for="">ชื่อ :</label>
@@ -27,10 +29,11 @@
                     <template v-if=" $v.firstname.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.firstname.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
-                <br>
+                <br> 
 
 
                 <div>
@@ -40,23 +43,41 @@
                     <template v-if=" $v.lastname.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.lastName.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.lastname.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
 
-                <label class="font-semibold text-xl" for="">อีเมล :</label>
+                <div>
+                    <label class="font-semibold text-xl" for="">อีเมล :</label>
+                    <br>
+                    <input v-model="$v.email.$model" :class="{'border-rose-500 border-solid border' : $v.email.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.email.$error">
+                        <br>
+                        <p class="text-rose-500" v-if="!$v.email.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.email.email">กรุณากรอกอีเมลให้ถูกต้อง</p>
+                        
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
 
-                <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
+                <div>
+                    <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
+                    <br>
+                    <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border' : $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.pass.$error">
+                        <br>
+                        <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
+                        <p class="text-rose-500" v-if="!$v.pass.complex">กรุณากรอกรหัสผ่านให้ถูกต้อง</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
+
             </div>
             <router-link to="">
-                <a class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
             <router-link to="/login_user">
@@ -95,7 +116,15 @@
     // };
     // Vue.use(vueJoiValidation,options);
 
-    import { required } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
+
+    function complexPass(value) {
+            if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+                return true
+            } else {
+                return false
+            }
+        }
 
     export default {
         data() {
@@ -115,21 +144,30 @@
             //     })
             // }
             firstname: {
-                required
+                required, minLength: minLength(5), maxLength:maxLength(100)
             }, 
             lastname: {
-                required
+                required, minLength: minLength(5), maxLength:maxLength(100)
+            },
+            email: {
+                required, email
+            },
+            pass: {
+                required, minLength: minLength(5), complex: complexPass
             }
         },
         methods: {
-            // submit() {
-            //     this.$v.$touch();
-            //     if (!this.$v.$invalid) {
-            //         let formData = new FormData();
-            //         formData.append("firstname", this.firstname);
-            //         formData.append("lastname", this.lastname);
-            //     }
-            // }
+            submit() {
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    let formData = new FormData();
+                    formData.append("sex", this.sex);
+                    formData.append("firstname", this.firstname);
+                    formData.append("lastname", this.lastname);
+                    formData.append("email", this.email);
+                    formData.append("pass", this.pass);
+                } 
+            }
         }
         
     }
