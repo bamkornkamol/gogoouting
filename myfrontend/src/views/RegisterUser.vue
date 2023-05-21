@@ -27,7 +27,7 @@
                     <template v-if=" $v.firstname.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.firstname.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -40,7 +40,7 @@
                     <template v-if=" $v.lastname.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.lastName.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.lastname.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -49,8 +49,9 @@
                     <label class="font-semibold text-xl" for="">อีเมล :</label>
                     <br>
                     <input v-model="$v.email.$model" :class="{'border-rose-500 border-solid border' : $v.email.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template>
-                        <p class="text-rose-500" v-if="!$v.email.required">This field is required</p>
+                    <template v-if=" $v.lastname.$error">
+                        <br>
+                        <p class="text-rose-500" v-if="!$v.email.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -59,15 +60,16 @@
                     <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
                     <br>
                     <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border' : $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template>
-                        <p class="text-rose-500" v-if="!$v.pass.required">This field is required</p>
+                    <template v-if=" $v.lastname.$error">
+                        <br>
+                        <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
 
             </div>
             <router-link to="">
-                <a class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
             <router-link to="/login_user">
@@ -139,14 +141,16 @@
             }
         },
         methods: {
-            // submit() {
-            //     this.$v.$touch();
-            //     if (!this.$v.$invalid) {
-            //         let formData = new FormData();
-            //         formData.append("firstname", this.firstname);
-            //         formData.append("lastname", this.lastname);
-            //     }
-            // }
+            submit() {
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    let formData = new FormData();
+                    formData.append("firstname", this.firstname);
+                    formData.append("lastname", this.lastname);
+                    formData.append("email", this.email);
+                    formData.append("pass", this.pass);
+                }
+            }
         }
         
     }
