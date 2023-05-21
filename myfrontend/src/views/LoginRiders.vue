@@ -12,6 +12,7 @@
                     <template v-if=" $v.phone.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกเบอร์โทรศัพท์ให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.phone.mobile">เบอร์โทรศัพท์ไม่ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -22,6 +23,8 @@
                     <template v-if=" $v.pass.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
+                        <p class="text-rose-500" v-if="!$v.pass.complex">รหัสผ่านไม่ถูกต้อง</p>
                     </template>
                 </div>
             </div>
@@ -49,6 +52,19 @@
 
 <script>
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+
+    function mobile(value) {
+        return !!value.match(/0[0-9]{9}/)
+    }
+    
+    function complexPass(value) {
+            if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+                return false
+            } else {
+                return true
+            }
+        }
+
     export default {
         data() {
             return {
@@ -58,10 +74,10 @@
         },
         validations: {
             phone: {
-                required, minLength: minLength(5), maxLength:maxLength(100)
+                required, mobile: mobile
             },
             pass: {
-                required, minLength: minLength(5), maxLength:maxLength(100)
+                required, minLength: minLength(5), maxLength:maxLength(20), complex: complexPass
             }
             
         },

@@ -11,6 +11,7 @@
                     <template v-if=" $v.email.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.email.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.email.email">อีเมลไม่ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -21,6 +22,8 @@
                     <template v-if=" $v.pass.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
+                        <p class="text-rose-500" v-if="!$v.pass.complex">รหัสผ่านไม่ถูกต้อง</p>
                     </template>
                 </div>
             </div>
@@ -46,7 +49,15 @@
 </template>
 
 <script>
-    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+    import { required, email, minLength} from 'vuelidate/lib/validators'
+
+    function complexPass(value) {
+        if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+            return false
+        } else {
+            return true
+        }
+    }
 
     
     export default {
@@ -59,10 +70,10 @@
         },
         validations: {
             email: {
-                required, minLength: minLength(5), maxLength:maxLength(100)
+                required, email
             },
             pass: {
-                required, minLength: minLength(5), maxLength:maxLength(100)
+                required, minLength: minLength(5), complex: complexPass
             } 
         },
         methods: {

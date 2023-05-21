@@ -120,9 +120,9 @@ import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
 
     function complexPass(value) {
             if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-                return true
-            } else {
                 return false
+            } else {
+                return true
             }
         }
 
