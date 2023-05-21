@@ -98,7 +98,7 @@ router.put('/review/edit/:rwId', upload.single(), async(req, res) =>{
         console.log('finally')
     }
 })
-
+//success
 router.put('/review/addLike/:rwId', async(req, res) => {
     const rwId = req.params.rwId
 
@@ -106,13 +106,15 @@ router.put('/review/addLike/:rwId', async(req, res) => {
     await conn.beginTransaction()
 
     try{
-        const [data] = await pool.query("select * from reviews where id = ?", [rwId])
+        const [data] = await conn.query("select * from reviews where id = ?", [rwId])
 
-        await pool.query("update reviews set like = ? where id = ?",
-        [data[0].like+1, rwId])
+        const newLike = data[0].like+1
+        await conn.query("update reviews set `like` = ? where id = ?",
+        [newLike, parseInt(rwId)])
 
         conn.commit()
-        res.status(200).send('success')
+        
+        res.json({like:newLike})
     }catch(err){
         await conn.rollback()
         console.log(err)
