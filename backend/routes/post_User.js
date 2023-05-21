@@ -98,15 +98,17 @@ router.post('/bookVan/:userId', upload.single('img'), async(req, res) => {
     try{
         const [data] = await pool.query("insert into book_van (user_id, round_van_id) values (?,?)", [userId, round])
 
-        const bookId = data[0].insertId
+        const bookId = data.insertId
+        const [van] = await pool.query("select * from round_van where round_van_id = ?",[round])
+        console.log(van[0].seat)
 
         await pool.query(
             `insert into payment_img(book_id, image_file_path) values(?, ?);`,
             [bookId, file.path.substr(6).replaceAll("\\", "/")]
         )
 
-        await pool.query("update round_van set amount = ? where id = ?",
-        [round[0].amount-1, round])
+        await pool.query("update round_van set seat = ? where round_van_id = ?",
+        [parseInt(van[0].seat)-1, round])
 
         conn.commit()
         res.status(200).send('success')

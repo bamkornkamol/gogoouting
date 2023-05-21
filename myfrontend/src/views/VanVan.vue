@@ -50,6 +50,7 @@
                 <th class="w-96 px-4 py-2 text-3xl">ปลายทาง</th>
                 <th class="w-96 px-4 py-2 text-3xl">เวลา</th>
                 <th class="w-96 px-4 py-2 text-3xl">ราคา</th>
+                <th class="w-96 px-4 py-2 text-3xl"></th>
               </tr>
             </thead>
             <tbody v-for="val in r_van" :key="val">
@@ -57,9 +58,32 @@
                 <td class="border px-4 py-2">{{ val.location }}</td>
                 <td class="border px-4 py-2">{{ val.time }}</td>
                 <td class="border px-4 py-2">{{ val.price }}</td>
+                <td class="content-start items-start flex p-2">
+                  <button @click="show_modal = !show_modal; show.push(val);" class="w-16 bg-emerald-500 text-white rounded-xl">จอง</button>
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="modal" v-bind:class="{'is-active':show_modal}">
+            <div class="modal-background" @click="show_modal = !show_modal; show.splice(0);"  ></div>
+            <div class="modal-card w-60" v-for="val in show" :key="val">
+                <header class="modal-card-head">
+                    <p class="modal-card-title w-full h-8">ชำระเงิน</p>
+                </header> 
+                <section class="modal-card-body">
+                  <div class="grid grid-cols-2">
+                    <img class="w-96" src="https://cdn.discordapp.com/attachments/859670322160599051/1109914754698465431/12034CA0-C8FD-4D49-AABC-9E666FD17CE7.jpg" alt="">
+                    <form class="space-y-3 p-5">
+                        <p>{{val.location}}</p>
+                        <p>{{val.time}}</p>
+                        <p>{{val.price}}</p>
+                        <p>หลักฐานการขำระเงิน</p>
+                        <div @click="bookvan(val.round_van_id)" class="bg-emerald-500 text-white p-2 w-20 hover:bg-emerald-700 rounded-3xl mt-5">ยืนยัน</div>
+                    </form>
+                  </div>
+                </section>
+            </div>
         </div>
       </div>
     </div>
@@ -69,6 +93,7 @@
 <script>
 import NavbarAll from "../components/NavbarAll.vue";
 import axios from "axios";
+// import Swal from 'sweetalert2'
 
 export default {
   components: {
@@ -76,11 +101,12 @@ export default {
   },
   data() {
     return {
-      r_van: null
+      r_van: null,
+      show_modal: false,
+      show: [],
+      userId:3,
+      file:null
     };
-  },
-  create() {
-    
   },
   methods: {
     test() {

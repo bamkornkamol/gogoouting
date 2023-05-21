@@ -25,7 +25,7 @@ router.delete('/unfav/:favId', async(req, res) => {
         console.log('finally')
     }
 })
-
+//success
 router.delete('/review/delete/:rwId', async(req, res) => {
     const rwId = req.params.rwId
 
