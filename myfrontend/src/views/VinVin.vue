@@ -21,13 +21,13 @@
             <option value="ตลาดนัดสุวรรณภูมิ">ตลาดนัดสุวรรณภูมิ</option>
           </select>
           <br>
-          <button id="ttest" @click="location(test())" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
+          <button id="ttest" @click="location(test()); check=true" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
             ดูเลย !!
         </button>
         </div>
         
           <div class="col-span-2 p-12 grid grid-row-2">
-            <p class="text-3xl mb-5">{{test()}}</p>
+            <p v-if="check==true" class="text-3xl mb-5">{{test()}}</p>
             <div class="grid gap-3 grid-cols-5">
               <div v-for="vin in vin" :key="vin">
                     <div @click="show_modal = !show_modal; show.push(vin);" v-if="vin.status == '0'" class="bg-emerald-600 rounded-lg h-36 justify-center content-center items-center flex flex-col">
@@ -90,9 +90,10 @@
         },
         data() {
           return {
-            vin:null,
+            vin:[],
             show_modal: false,
             show: [],
+            check:false
           };
         },
         create(){

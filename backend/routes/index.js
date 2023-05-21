@@ -94,12 +94,13 @@ router.get('/van/:location', async(req, res) => {
 })  
 
 router.get('/profile/:userId', async(req, res) => {
-    const userId = req.body.userId
+    const userId = req.params.userId
 
     try{
-        const [data] = await pool.query("select * from user where user_id = ?", [userId])
+        const [data] = await pool.query("select * from user u join images i on(u.id = i.user_id) where u.id = ?", [userId])
         const [favplace] = await pool.query(
-            "select * from fav_place f join suggestion_place s using(place_id) join images i on (s.place_id = i.place_id)"
+            "select * from fav_place f join suggestion_place s on(f.place_id = s.id) join images i on (s.id = i.place_id) where f.user_id = ?",
+            [userId]
         )
 
         return res.json({
