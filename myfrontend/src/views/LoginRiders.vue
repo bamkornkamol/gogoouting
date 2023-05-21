@@ -12,7 +12,6 @@
                     <template v-if=" $v.phone.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกเบอร์โทรศัพท์ให้เรียบร้อย</p>
-                        <p class="text-rose-500" v-if="!$v.phone.mobile">เบอร์โทรศัพท์ไม่ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -24,7 +23,6 @@
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
                         <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
-                        <p class="text-rose-500" v-if="!$v.pass.complex">รหัสผ่านไม่ถูกต้อง</p>
                     </template>
                 </div>
             </div>

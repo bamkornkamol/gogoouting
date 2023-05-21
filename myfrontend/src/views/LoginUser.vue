@@ -23,7 +23,6 @@
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
                         <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
-                        <p class="text-rose-500" v-if="!$v.pass.complex">รหัสผ่านไม่ถูกต้อง</p>
                     </template>
                 </div>
             </div>
