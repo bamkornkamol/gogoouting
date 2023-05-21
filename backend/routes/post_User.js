@@ -57,7 +57,7 @@ router.post('/register', upload.single('img'), async(req, res) => {
         console.log('finally')
     }
 })
-
+//success
 router.post('/fav/:placeId/:userId', upload.single(), async(req, res) => {
     const place = req.params.placeId
     const user = req.params.userId
@@ -79,7 +79,7 @@ router.post('/fav/:placeId/:userId', upload.single(), async(req, res) => {
         console.log('finally')
     }
 })
-
+//success
 router.post('/bookVan/:userId', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {

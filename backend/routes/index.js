@@ -116,8 +116,8 @@ router.get('/bookVan/:userId', async(req, res) => {
     const userId = req.params.userId
 
     try{
-        const [data] = await pool.query("select * from bookVan join round_van using (round_van_id) where user_id = ?",
-        {userId})
+        const [data] = await pool.query("select *,DATE_FORMAT(`date`, '%Y-%m-%d') AS `date` from book_van join round_van using (round_van_id) where user_id = ?",
+        [userId])
         return res.json(data)
     }catch(err){
         console.log(err)

@@ -13,11 +13,8 @@
           <p class="text-3xl text-white ">สภาพอากาศวันนี้</p>
         </div>
 
-        <div class="p-4">
-          <input v-model="query" @keypress="fetchWeather" class="bg-white border rounded-lg h-5 w-96 p-4" type="text" placeholder="ค้นหา..."/>
-        </div>
 
-        <div class="grid grid-rows-2 text-center" v-if="typeof weather.main != 'undefined'">
+        <div class="text-center justify-center content-center items-center flex flex-col" v-if="typeof weather.main != 'undefined'">
           <p class="text-4xl text-white">{{ weather.name }}, {{ weather.sys.country }}</p>
           <p class="text-white">{{ dateBuilder() }}</p>
           <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
@@ -67,7 +64,7 @@
 
                   <!-- star ใส -->
                   <span>
-                    <i class="fa-regular fa-heart"></i>
+                    <i @click="favplace(sug_place.id)" class="fa-regular fa-heart"></i>
                   </span>
                 </div>
               </div>
@@ -102,7 +99,8 @@ export default {
       url_base: 'https://api.openweathermap.org/data/2.5/',
       query: '',
       weather: {},
-      icon: {}
+      icon: {},
+      userId:3
     };
   },
   created(){
@@ -113,17 +111,20 @@ export default {
     })
     .catch((err) => {
       console.log(err)
-    })
-  },
-  methods: {
-
-    fetchWeather (e) {
-      if (e.key == "Enter") {
-        fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+    }),
+    fetch(`${this.url_base}weather?q=thailand&units=metric&APPID=${this.api_key}`)
           .then(res => {
             return res.json();
           }).then(this.setResults);
-      }
+  },
+  methods: {
+    favplace(id){
+      axios.post("http://localhost:3000/fav/"+ id+"/"+ this.userId)
+      .then((response) => {
+        console.log(response)
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     setResults (results) {
       this.weather = results;
@@ -140,11 +141,6 @@ export default {
 
       return `${day} ${date} ${month} ${year}`;
     },
-
-
-
-
-
     filter(category){
       if (category == 'ทั้งหมด'){
         this.all = "http://localhost:3000/home"

@@ -7,9 +7,9 @@
 
     <div class="container">
       <div id="app" class="grid grid-cols-5">
-        <div class="col-span-1 space-y-3 content-center items-center flex flex-col">
+        <div class="col-span-1content-center items-center flex flex-col">
           <p class="text-center">วันนี้จะไปไหน ?</p>
-          <select class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <select class="my-3 w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="locations" name="loca">
             <option value="">กดเพื่อเลือก</option>
             <option value="ฟิวเจอร์">ฟิวเจอร์</option>
@@ -21,9 +21,12 @@
           <button
             id="ttest"
             @click="location(test())"
-            class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full mt-5"
+            class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full mt-3"
           >
             ดูเลย !!
+          </button>
+          <button id="ttest" @click="show_modal = !show_modal; show.push(mybook);test2()" class="mt-60 bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-3xl">
+            รายการจองทั้งหมด
           </button>
         </div>
 
@@ -43,7 +46,7 @@
                 <td class="border px-4 py-2">{{ val.time }}</td>
                 <td class="border px-4 py-2">{{ val.price }}</td>
                 <td class="content-start items-start flex p-2">
-                  <button @click="book = true; book_round = val.location; book_price = val.price; book_time = val.time; roundvan=val.round_van_id;test2()" class="w-16 bg-emerald-500 text-white rounded-xl">จอง</button>
+                  <button @click="book = true; book_round = val.location; book_price = val.price; book_time = val.time; roundvan=val.round_van_id;" class="w-16 bg-emerald-500 text-white rounded-xl">จอง</button>
                 </td>
               </tr>
             </tbody>
@@ -51,9 +54,7 @@
           
         </div>
         <div class="col-span-1">
-          <!-- <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-3xl">
-            รายการจองทั้งหมด
-          </button> -->
+          
           <div v-if="book==true" class="ml-8 text-base">
             <img class="w-7/12 mb-2 rounded-xl" src="https://cdn.discordapp.com/attachments/859670322160599051/1109914754698465431/12034CA0-C8FD-4D49-AABC-9E666FD17CE7.jpg" alt="">
             <p class="text-emerald-500 my-2">กำลังจอง..</p>
@@ -62,10 +63,43 @@
             <p>ราคา: {{this.book_price}} </p>
             <input class="mt-4" type="file" name="file" ref="file" @change="handleFileUpload()">
             <button @click="bookvan(roundvan)" class="w-24 bg-emerald-500 text-white rounded-3xl mt-3">ยืนยัน</button>
-            <button class="ml-2 w-24 bg-rose-500 text-white rounded-3xl mt-3">ยกเลิก</button>
+            <button @click="book=false" class="ml-2 w-24 bg-rose-500 text-white rounded-3xl mt-3">ยกเลิก</button>
           </div>
         </div>
       </div>
+
+      <div class="modal" v-bind:class="{'is-active':show_modal}">
+            <div class="modal-background" @click="show_modal = !show_modal; show.splice(0);"  ></div>
+            <div class="modal-card w-54" >
+                <header class="modal-card-head">
+                    <p class="modal-card-title w-full h-8">รายการจองของฉัน</p>
+                </header> 
+                <section class="modal-card-body flex flex-col justify-center content-center items-center">
+                  <div class="flex flex-row space-x-2" >
+                    <table class="table-auto">
+                      <tr>
+                        <th>ปลายทาง</th>
+                        <th>วันที่</th>
+                        <th>ราคา</th>
+                        <th>เวลาออก</th>
+                      </tr>
+                      <tbody v-for="val in mybook" :key="val">
+                        <tr>
+                          <td class=" border border-neutral-500 p-2 px-5">{{val.location}}</td>
+                          <td class=" border border-neutral-500 p-2 px-5">{{val.date}}</td>
+                          <td class=" border border-neutral-500 p-2 px-5">{{val.price}}</td>
+                          <td class=" border border-neutral-500 p-2 px-5">{{val.time}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- <p> : </p>
+                    <p> : </p>
+                    <p> :  บาท</p>
+                    <p> : </p> -->
+                  </div>
+                </section>
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -90,12 +124,22 @@ export default {
       book_round:null,
       book_time:null,
       book_price:null,
-      book:false
+      book:false,
+      mybook:null
     };
+  },
+  created(){
+    axios.get("http://localhost:3000/bookVan/" + this.userId)
+    .then((response) => {
+      this.mybook = response.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   },
   methods: {
     test2(){
-      console.log(this.roundvan)
+      console.log(this.show)
     },
     handleFileUpload(){
       this.file = this.$refs.file.files[0];
