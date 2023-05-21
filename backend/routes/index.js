@@ -29,17 +29,17 @@ router.get('/sugplace/:category', async(req, res) => {
         console.log(err)
     }
 })
-
+//success
 router.get('/place/detail/:placeId', async(req, res) => {
     const place_id = req.params.placeId
     try {
         const [data] = await pool.query(
-            "select * from suggestion_place s join category c using(category_id) join images i on (s.id = i.place_id) where place_id = ?"
+            "select * from suggestion_place s join category c on(c.id = s.category_id) join images i on (s.id = i.place_id) where place_id = ?"
             ,[place_id]
         )
 
         const [review] = await pool.query(
-            "select * from reviews where place_id = ?", [place_id]
+            "select *, r.id 'id' from reviews r join user u on(u.id = r.user_id) join images i on(u.id = i.user_id) where r.place_id = ?", [place_id]
         )
         return res.json({
             place_dt: data,

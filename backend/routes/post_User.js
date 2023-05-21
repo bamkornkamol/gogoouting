@@ -120,7 +120,7 @@ router.post('/bookVan/:userId', upload.single('img'), async(req, res) => {
     }
 
 })
-
+//success
 router.post('/review/:placeId/:userId', upload.single(), async(req, res) => {
     const placeId = req.params.placeId
     const userId = req.params.userId
@@ -131,8 +131,8 @@ router.post('/review/:placeId/:userId', upload.single(), async(req, res) => {
     await conn.beginTransaction()
 
     try{
-        const [data] = await pool.query("insert into reviews(review, place_id, rate, user_id, like) values (?,?,?,?,0)",
-        [review, placeId, star, userId])
+        const [data] = await pool.query("insert into reviews(`review`, `place_id`, `rate`, `user_id`, `like`) values (?,?,?,?,0)",
+        [review, parseInt(placeId), parseInt(star), parseInt(userId)])
 
         conn.commit()
         res.status(200).send('success')
