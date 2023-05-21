@@ -47,11 +47,14 @@
 
 <script>
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+
+    
     export default {
         data() {
             return {
                 email: '',
                 pass: '',
+                submitStatus: null
             }
         },
         validations: {
@@ -60,8 +63,7 @@
             },
             pass: {
                 required, minLength: minLength(5), maxLength:maxLength(100)
-            }
-            
+            } 
         },
         methods: {
             submit() {

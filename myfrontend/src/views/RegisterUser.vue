@@ -19,9 +19,6 @@
                         <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นางสาว</label>
                     </div>
                 </div>
-                <template v-if=" $v.sex.$error">
-                    <p class="text-rose-500" v-if="!$v.sex.required">กรุณากรอกให้เรียบร้อย</p>
-                </template>
                 <br>
 
                 <div>
@@ -33,9 +30,10 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
-                <br>
+                <br> 
 
 
                 <div>
@@ -46,6 +44,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.lastName.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -54,9 +53,12 @@
                     <label class="font-semibold text-xl" for="">อีเมล :</label>
                     <br>
                     <input v-model="$v.email.$model" :class="{'border-rose-500 border-solid border' : $v.email.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template v-if=" $v.lastname.$error">
+                    <template v-if=" $v.email.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.email.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.email.email">กรุณากรอกอีเมลให้ถูกต้อง</p>
+                        <p class="text-rose-500" v-if="!$v.email.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
+                        
                     </template>
                 </div>
                 <br>
@@ -65,9 +67,11 @@
                     <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
                     <br>
                     <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border' : $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template v-if=" $v.lastname.$error">
+                    <template v-if=" $v.pass.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
+                        <p class="text-rose-500" v-if="!$v.pass.complex">กรุณากรอกรหัสผ่านให้ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -113,7 +117,15 @@
     // };
     // Vue.use(vueJoiValidation,options);
 
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
+
+    function complexPass(value) {
+            if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+                return true
+            } else {
+                return false
+            }
+        }
 
     export default {
         data() {
@@ -132,9 +144,6 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
             //         email: this.$joi.required()
             //     })
             // }
-            sex: {
-                required
-            },
             firstname: {
                 required, minLength: minLength(5), maxLength:maxLength(100)
             }, 
@@ -142,10 +151,10 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
                 required, minLength: minLength(5), maxLength:maxLength(100)
             },
             email: {
-                required, minLength: minLength(5), maxLength: maxLength(100)
+                required, email, minLength: minLength(5), maxLength: maxLength(100)
             },
             pass: {
-                required, minLength: minLength(5)
+                required, minLength: minLength(5), complex: complexPass
             }
         },
         methods: {
@@ -158,9 +167,7 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
                     formData.append("lastname", this.lastname);
                     formData.append("email", this.email);
                     formData.append("pass", this.pass);
-                } else {
-                    return alert('สร้างบัญชีผู้ใช้สำเร็จ')
-                }
+                } 
             }
         }
         

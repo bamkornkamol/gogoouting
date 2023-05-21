@@ -91,12 +91,15 @@
 <script>
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
-    export function checkPassword(pass) {
-        var check = /^[A-Za-z]\w{7,14}$/;
-        if (pass.value.match(check)) {
-            return true;
+    function mobile(value) {
+        return !!value.match(/0[0-9]{9}/)
+    }
+
+    function complexPass(value) {
+        if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+            return true
         } else {
-            return false;
+            return false
         }
     }
 
@@ -117,10 +120,10 @@
                 required, minLength: minLength(5), maxLength:maxLength(100)
             },
             phone: {
-                required, minLength: minLength(5), maxLength: maxLength(100)
+                required, minLength: minLength(5), maxLength: maxLength(100), mobile: mobile
             },
             pass: {
-                required, minLength: minLength(6), maxLength: maxLength(20),
+                required, minLength: minLength(6), maxLength: maxLength(20), complex: complexPass
             }
         },
         methods: {
