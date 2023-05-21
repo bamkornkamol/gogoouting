@@ -27,7 +27,7 @@
                     <template v-if=" $v.firstname.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.firstname.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -41,7 +41,7 @@
                     <template v-if=" $v.lastname.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.lastname.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.lastname.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -54,7 +54,7 @@
                     <template v-if=" $v.phone.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.phone.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.phone.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกเบอร์โทรศัพท์ให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -68,13 +68,13 @@
                     <template v-if=" $v.pass.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.pass.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.pass.required">This field is required</p>
+                        <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
             </div>
-            <router-link to="/login_van">
-                <a onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+            <router-link to="">
+                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
             <router-link to="/login_van">
@@ -121,6 +121,20 @@
             },
             pass: {
                 required, minLength: minLength(6), maxLength: maxLength(20),
+            }
+        },
+        methods: {
+            submit() {
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    let formData = new FormData();
+                    formData.append("firstname", this.firstname);
+                    formData.append("lastname", this.lastname);
+                    formData.append("phone", this.phone);
+                    formData.append("pass", this.pass);
+
+
+                }
             }
         }
     }

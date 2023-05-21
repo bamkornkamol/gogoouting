@@ -7,17 +7,22 @@
             <h3 class="text-zinc-500">สร้างบัญชีสำหรับผู้ใช้</h3>
 
             <div class="p-8 content-left w-full">
+
                 <div class="grid grid-cols-3">
                     <label class="font-semibold text-xl" for="">คำนำหน้าชื่อ :</label>
                     <div class="flex items-center">
-                        <input type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input v-model="sex" type="radio" :value="true" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นาย</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input v-model="sex" type="radio" :value="false" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นางสาว</label>
                     </div>
-                </div> <br>
+                </div>
+                <template v-if=" $v.sex.$error">
+                    <p class="text-rose-500" v-if="!$v.sex.required">กรุณากรอกให้เรียบร้อย</p>
+                </template>
+                <br>
 
                 <div>
                     <label class="font-semibold text-xl" for="">ชื่อ :</label>
@@ -108,7 +113,7 @@
     // };
     // Vue.use(vueJoiValidation,options);
 
-    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
     export default {
         data() {
@@ -127,6 +132,9 @@
             //         email: this.$joi.required()
             //     })
             // }
+            sex: {
+                required
+            },
             firstname: {
                 required, minLength: minLength(5), maxLength:maxLength(100)
             }, 
@@ -145,10 +153,13 @@
                 this.$v.$touch();
                 if (!this.$v.$invalid) {
                     let formData = new FormData();
+                    formData.append("sex", this.sex);
                     formData.append("firstname", this.firstname);
                     formData.append("lastname", this.lastname);
                     formData.append("email", this.email);
                     formData.append("pass", this.pass);
+                } else {
+                    return alert('สร้างบัญชีผู้ใช้สำเร็จ')
                 }
             }
         }
