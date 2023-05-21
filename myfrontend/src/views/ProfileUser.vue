@@ -12,7 +12,7 @@
 
                 <form v-if="changimg==true" class="mt-4 space-x-2">
                     <input type="file" name="file" ref="file" @change="handleFileUpload()">
-                    <button @click="editimg()" class="bg-emerald-500 text-white p-2 w-20 hover:bg-emerald-600 rounded-3xl">change</button>
+                    <button @click="editimg()" class="bg-neutral-800 text-white p-2 w-20 hover:bg-neutral-600 rounded-3xl">change</button>
                     <button @click="changimg=false" class="bg-rose-500 text-white p-2 w-20 hover:bg-rose-600 rounded-3xl">cancle</button>
                 </form>
                 
@@ -71,16 +71,22 @@
 
         <div class="modal" v-bind:class="{'is-active':show_modal}">
             <div class="modal-background" @click="show_modal = !show_modal; show.splice(0);"  ></div>
-            <div class="modal-card w-60" v-for="val in show" :key="val">
+            <div class="modal-card w-54" v-for="val in show" :key="val">
                 <header class="modal-card-head">
                     <p class="modal-card-title w-full h-8">Edit Profile</p>
                 </header> 
-                <section class="modal-card-body">
-                    <form class="flex flex-col w-full justify-center content-center items-center space-y-3">
-                        <input class="w-8/12 p-2 border border-gray-300 border-solid rounded-lg" type="text" id="edit_fname"  :value="val.first_name">
-                        <input class="w-8/12 p-2 border border-gray-300 border-solid rounded-lg" type="text" id="edit_lname"  :value="val.last_name">
-                        <input class="w-8/12 p-2 border border-gray-300 border-solid rounded-lg" type="text" id="edit_email"  :value="val.email">
-                        <button @click="editprofile()" class="bg-emerald-500 text-white p-2 w-20 hover:bg-emerald-700 rounded-xl">save</button>
+                <section class="modal-card-body flex flex-col justify-center content-center items-center">
+                    <form class="flex flex-col w-full justify-start content-start items-start space-y-3">
+                        <label for="edit_fname">First Name</label>
+                        <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="text" id="edit_fname"  :value="val.first_name">
+                        <label for="edit_lname">Last Name</label>
+                        <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="text" id="edit_lname"  :value="val.last_name">
+                        <label for="edit_email">Email</label>
+                        <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="text" id="edit_email"  :value="val.email">
+                        <div class="flex flex-row space-x-5 mt-3">
+                            <button @click="editprofile()" class="bg-emerald-500 text-white p-2 w-20 hover:bg-emerald-700 rounded-xl">save</button>
+                            <button @click="show_modal = !show_modal" class="bg-rose-500 text-white p-2 w-20 hover:bg-rose-700 rounded-xl">cancle</button>
+                        </div>
                     </form>
                    
                 </section>
@@ -147,9 +153,11 @@ export default {
                 console.log(response)
                 Swal.fire({
                     icon: 'success',
-                    title: 'แก้ไข้สำเร็จ',
+                    title: 'ทำรายการสำเร็จ',
                     showConfirmButton: true,
                     timer: 3000
+                }).then(() => {
+                  this.changimg = false
                 })
             }).catch((err) => {
                 console.log(err)

@@ -3,7 +3,7 @@
         <NavbarAll></NavbarAll>
         <br>
         <div class="justify-center content-center items-center flex flex-rows">
-            <input id='dest' class="rounded-3xl bg-zinc-200 w-96 h-16 mr-2" type="text">
+            <input id='dest' class="rounded-3xl bg-zinc-200 w-96 h-10 mr-2 p-5" type="text">
             <p>หาที่นี่ในลาดกระบังให้หน่อย !!</p>
         </div>
         <br>

@@ -3,54 +3,38 @@
     <NavbarAll></NavbarAll>
     <br /><br />
 
-    <h1 class="text-8xl text-center">รอบรถตู้วันนี้ !!</h1>
-    <br /><br />
+    <h1 class="text-7xl text-center mb-14">รอบรถตู้วันนี้ !!</h1>
+
     <div class="container">
-      <div id="app" class="grid grid-cols-3">
-        <div
-          class="grid grid-rows-3 justify-center content-center items-center flex flex-center"
-        >
+      <div id="app" class="grid grid-cols-5">
+        <div class="col-span-1 space-y-3 content-center items-center flex flex-col">
           <p class="text-center">วันนี้จะไปไหน ?</p>
-          <select
-            class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="locations"
-            name="loca"
-          >
+          <select class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            id="locations" name="loca">
             <option value="">กดเพื่อเลือก</option>
             <option value="ฟิวเจอร์">ฟิวเจอร์</option>
             <option value="อนุสาวรีย์">อนุสาวรีย์</option>
             <option value="ซีคอน">ซีคอน</option>
             <option value="มีนบุรี">มีนบุรี</option>
           </select>
-          <br />
-          <br />
+
           <button
             id="ttest"
             @click="location(test())"
-            class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full"
+            class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full mt-5"
           >
             ดูเลย !!
           </button>
-          <br /><br /><br />
-          <button
-            id="ttest"
-            @click="test()"
-            class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-3xl"
-          >
-            รายการจองทั้งหมด
-          </button>
         </div>
 
-        <div
-          class="col-span-2 text-center content-center items-center flex flex-col"
-        >
+        <div class="col-span-3 text-center content-center items-center flex flex-col">
           <table class="table-auto">
             <thead>
               <tr>
                 <th class="w-96 px-4 py-2 text-3xl">ปลายทาง</th>
                 <th class="w-96 px-4 py-2 text-3xl">เวลา</th>
                 <th class="w-96 px-4 py-2 text-3xl">ราคา</th>
-                <th class="w-96 px-4 py-2 text-3xl"></th>
+                <th class="w-32 px-4 py-2 text-3xl"></th>
               </tr>
             </thead>
             <tbody v-for="val in r_van" :key="val">
@@ -59,31 +43,27 @@
                 <td class="border px-4 py-2">{{ val.time }}</td>
                 <td class="border px-4 py-2">{{ val.price }}</td>
                 <td class="content-start items-start flex p-2">
-                  <button @click="show_modal = !show_modal; show.push(val);" class="w-16 bg-emerald-500 text-white rounded-xl">จอง</button>
+                  <button @click="book = true; book_round = val.location; book_price = val.price; book_time = val.time; roundvan=val.round_van_id;test2()" class="w-16 bg-emerald-500 text-white rounded-xl">จอง</button>
                 </td>
               </tr>
             </tbody>
           </table>
+          
         </div>
-        <div class="modal" v-bind:class="{'is-active':show_modal}">
-            <div class="modal-background" @click="show_modal = !show_modal; show.splice(0);"  ></div>
-            <div class="modal-card w-60" v-for="val in show" :key="val">
-                <header class="modal-card-head">
-                    <p class="modal-card-title w-full h-8">ชำระเงิน</p>
-                </header> 
-                <section class="modal-card-body">
-                  <div class="grid grid-cols-2">
-                    <img class="w-96" src="https://cdn.discordapp.com/attachments/859670322160599051/1109914754698465431/12034CA0-C8FD-4D49-AABC-9E666FD17CE7.jpg" alt="">
-                    <form class="space-y-3 p-5">
-                        <p>{{val.location}}</p>
-                        <p>{{val.time}}</p>
-                        <p>{{val.price}}</p>
-                        <p>หลักฐานการขำระเงิน</p>
-                        <div @click="bookvan(val.round_van_id)" class="bg-emerald-500 text-white p-2 w-20 hover:bg-emerald-700 rounded-3xl mt-5">ยืนยัน</div>
-                    </form>
-                  </div>
-                </section>
-            </div>
+        <div class="col-span-1">
+          <!-- <button id="ttest" @click="test()" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-3xl">
+            รายการจองทั้งหมด
+          </button> -->
+          <div v-if="book==true" class="ml-8 text-base">
+            <img class="w-7/12 mb-2 rounded-xl" src="https://cdn.discordapp.com/attachments/859670322160599051/1109914754698465431/12034CA0-C8FD-4D49-AABC-9E666FD17CE7.jpg" alt="">
+            <p class="text-emerald-500 my-2">กำลังจอง..</p>
+            <p>ปลายทาง : {{this.book_round}}</p>
+            <p>เวลา : {{this.book_time}}</p>
+            <p>ราคา: {{this.book_price}} </p>
+            <input class="mt-4" type="file" name="file" ref="file" @change="handleFileUpload()">
+            <button @click="bookvan(roundvan)" class="w-24 bg-emerald-500 text-white rounded-3xl mt-3">ยืนยัน</button>
+            <button class="ml-2 w-24 bg-rose-500 text-white rounded-3xl mt-3">ยกเลิก</button>
+          </div>
         </div>
       </div>
     </div>
@@ -93,7 +73,7 @@
 <script>
 import NavbarAll from "../components/NavbarAll.vue";
 import axios from "axios";
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 export default {
   components: {
@@ -105,10 +85,45 @@ export default {
       show_modal: false,
       show: [],
       userId:3,
-      file:null
+      file:null,
+      roundvan:null,
+      book_round:null,
+      book_time:null,
+      book_price:null,
+      book:false
     };
   },
   methods: {
+    test2(){
+      console.log(this.roundvan)
+    },
+    handleFileUpload(){
+      this.file = this.$refs.file.files[0];
+    },
+    bookvan(round){
+      let formData = new FormData();
+      formData.append('img', this.file)
+      formData.append('round_van_id', round)
+
+      axios.post("http://localhost:3000/bookVan/"+ this.userId, formData ,{
+                headers: {
+                'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((response) => {
+                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ทำรายการสำเร็จ',
+                    showConfirmButton: true,
+                    timer: 3000
+                }).then(() => {
+                  this.book = false
+                })
+            }).catch((err) => {
+                console.log(err)
+            })
+    },
     test() {
       console.log( document.getElementById("locations").value)
       return document.getElementById("locations").value;
