@@ -4,7 +4,7 @@ const pool = require("../config");
 const multer = require('multer')
 
 router = express.Router();
-
+//success
 router.delete('/unfav/:favId', async(req, res) => {
     const favId = req.params.favId
 

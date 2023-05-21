@@ -4,7 +4,7 @@ const pool = require("../config");
 const multer = require('multer');
 
 router = express.Router();
-
+//success
 router.get('/home', async(req, res) => {
     try {
         const [data] = await pool.query(
@@ -16,7 +16,7 @@ router.get('/home', async(req, res) => {
         console.log(err)
     }
 })
-
+//success
 router.get('/sugplace/:category', async(req, res) => {
     const category = req.params.category
     try {
@@ -49,7 +49,7 @@ router.get('/place/detail/:placeId', async(req, res) => {
         console.log(err)
     }
 })
-
+//success
 router.get('/vin/:location', async(req, res) => {
     const location = req.params.location
     try{
@@ -63,7 +63,7 @@ router.get('/vin/:location', async(req, res) => {
         console.log(err)
     }
 })
-
+//success
 router.get('/vin/detail/:id', async(req, res) => {
     const vinId = req.params.id
     try{
@@ -79,7 +79,7 @@ router.get('/vin/detail/:id', async(req, res) => {
         console.log(err)
     }
 })
-
+//success
 router.get('/van/:location', async(req, res) => {
     const location = req.params.location
     try{
@@ -92,14 +92,14 @@ router.get('/van/:location', async(req, res) => {
         console.log(err)
     }
 })  
-
+//success
 router.get('/profile/:userId', async(req, res) => {
     const userId = req.params.userId
 
     try{
         const [data] = await pool.query("select * from user u join images i on(u.id = i.user_id) where u.id = ?", [userId])
         const [favplace] = await pool.query(
-            "select * from fav_place f join suggestion_place s on(f.place_id = s.id) join images i on (s.id = i.place_id) where f.user_id = ?",
+            "select *, f.id 'fav_id' from fav_place f join suggestion_place s on(f.place_id = s.id) join category c on(s.category_id = c.id) join images i on (s.id = i.place_id) where f.user_id = ?",
             [userId]
         )
 

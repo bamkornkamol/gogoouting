@@ -18,6 +18,7 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 // multer ================================================================================= 
 
+//success
 router.put('/profile/edit/:userId', upload.single(), async(req, res) =>{
     const userId = req.params.userId
     const fname = req.body.fname
@@ -28,7 +29,7 @@ router.put('/profile/edit/:userId', upload.single(), async(req, res) =>{
     await conn.beginTransaction()
 
     try{
-        const [data] = await pool.query("update users set first_name=?, last_name=?, email=? where id = ?",
+        const [data] = await pool.query("update user set first_name=?, last_name=?, email=? where id = ?",
         [fname, lname, email, userId])
 
         conn.commit()
@@ -42,7 +43,7 @@ router.put('/profile/edit/:userId', upload.single(), async(req, res) =>{
         console.log('finally')
     }
 })
-
+//success
 router.put('/profile/editimg/:userId', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {
