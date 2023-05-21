@@ -28,6 +28,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -41,6 +42,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.lastname.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -54,6 +56,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.phone.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกเบอร์โทรศัพท์ให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.phone.mobile">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -67,6 +70,9 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.pass.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 6 ตัวอักษร</p>
+                        <p class="text-rose-500" v-if="!$v.pass.complex">กรุณากรอกรหัสผ่านให้ถูกต้อง</p>
+                        
                     </template>
                 </div>
                 <br>
@@ -108,7 +114,8 @@
                     <template v-if=" $v.brand.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.brand.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.brand.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.brand.required">กรุณากรอกยี่ห้อมอเตอร์ไซค์ให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.brand.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -121,7 +128,8 @@
                     <template v-if=" $v.numcar.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.numcar.has('string.justalpha')" class="text-red-600"></span> -->
-                        <p class="text-rose-500" v-if="!$v.numcar.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.numcar.required">กรุณากรอกเลขทะเบียนให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.numcar.minLength">ต้องมีอย่างน้อย 3 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -145,6 +153,19 @@
 
 <script>
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+
+    function mobile(value) {
+        return !!value.match(/0[0-9]{9}/)
+    }
+
+    function complexPass(value) {
+        if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     export default {
         data() {
             return {
@@ -167,16 +188,16 @@
                 required, minLength: minLength(5), maxLength:maxLength(100)
             },
             phone: {
-                required, minLength: minLength(5), maxLength: maxLength(100)
+                required, mobile: mobile
             },
             pass: {
-                required, minLength: minLength(6), maxLength: maxLength(20)
+                required, minLength: minLength(6), maxLength: maxLength(20), complex: complexPass
             },
             brand: {
-                required,
+                required, minLength: minLength(5)
             },
             numcar: {
-                required,
+                required, minLength: minLength(3)
             }
         },
         methods: {

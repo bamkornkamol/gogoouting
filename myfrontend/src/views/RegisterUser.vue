@@ -57,7 +57,6 @@
                         <br>
                         <p class="text-rose-500" v-if="!$v.email.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
                         <p class="text-rose-500" v-if="!$v.email.email">กรุณากรอกอีเมลให้ถูกต้อง</p>
-                        <p class="text-rose-500" v-if="!$v.email.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                         
                     </template>
                 </div>
@@ -151,7 +150,7 @@ import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
                 required, minLength: minLength(5), maxLength:maxLength(100)
             },
             email: {
-                required, email, minLength: minLength(5), maxLength: maxLength(100)
+                required, email
             },
             pass: {
                 required, minLength: minLength(5), complex: complexPass

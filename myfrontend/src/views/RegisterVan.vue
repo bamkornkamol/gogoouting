@@ -28,6 +28,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.firstname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -42,6 +43,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.lastname.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.lastname.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
                 <br>
@@ -55,6 +57,7 @@
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.phone.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกเบอร์โทรศัพท์ให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.phone.mobile">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -65,10 +68,12 @@
                     <br>
                     <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
                     <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border': $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                    <template v-if=" $v.pass.$error">
+                    <template v-if="$v.pass.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.pass.has('string.justalpha')" class="text-red-600"></span> -->
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
+                        <p class="text-rose-500" v-if="!$v.pass.complex">กรุณากรอกรหัสผ่านให้ถูกต้อง</p>
                     </template>
                 </div>
                 <br>
@@ -120,10 +125,10 @@
                 required, minLength: minLength(5), maxLength:maxLength(100)
             },
             phone: {
-                required, minLength: minLength(5), maxLength: maxLength(100), mobile: mobile
+                required, mobile: mobile
             },
             pass: {
-                required, minLength: minLength(6), maxLength: maxLength(20), complex: complexPass
+                required, minLength: minLength(5), complex: complexPass
             }
         },
         methods: {
