@@ -18,22 +18,59 @@
                     </div>
                 </div>
                 <br>
-                <label class="font-semibold text-xl" for="">ชื่อ :</label>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">ชื่อ :</label>
+                    <br>
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.firstname.$model" :class="{'border-rose-500 border-solid border': $v.firstname.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.firstname.$error">
+                        <br>
+                        <!-- <span :key="index" v-if="joiValidationErrors.firstName.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.firstname.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
-                <label class="font-semibold text-xl" for="">นามสกุล :</label>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">นามสกุล :</label>
+                    <br>
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.lastname.$model" :class="{'border-rose-500 border-solid border': $v.lastname.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.lastname.$error">
+                        <br>
+                        <!-- <span :key="index" v-if="joiValidationErrors.lastname.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.lastname.required">กรุณากรอกนามสกุลให้เรียบร้อย</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
-                <label class="font-semibold text-xl" for="">เบอร์โทรศัพท์ :</label>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">เบอร์โทรศัพท์ :</label>
+                    <br>
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.phone.$model" :class="{'border-rose-500 border-solid border': $v.phone.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.phone.$error">
+                        <br>
+                        <!-- <span :key="index" v-if="joiValidationErrors.phone.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกเบอร์โทรศัพท์ให้เรียบร้อย</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
-                <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
+                    <br>
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border': $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.pass.$error">
+                        <br>
+                        <!-- <span :key="index" v-if="joiValidationErrors.pass.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
+                    </template>
+                </div>
                 <br>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
+
                 <div class="grid grid-cols-3">
                     <label class="font-semibold text-xl" for="">เพศ :</label>
                     <div class="flex items-center">
@@ -46,6 +83,7 @@
                     </div>
                 </div>
                 <br>
+
                 <label class="font-semibold text-xl" for="">ตำแหน่ง :</label>
                 <select class="bg-zinc-200 border rounded-xl h-12 w-full text-gray-400 indent-3" name="" id="">
                     <option value="">เลือกตำแหน่งที่ต้องการ</option>
@@ -61,15 +99,37 @@
                     <option value="">ตลาดสุวรรณภูมิ</option>
                 </select>
                 <br><br>
-                <label class="font-semibold text-xl" for="">ยี่ห้อมอเตอร์ไซค์ :</label>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
-                <label class="font-semibold text-xl" for="">เลขทะเบียน :</label>
-                <input class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
-                <br><br>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">ยี่ห้อมอเตอร์ไซค์ :</label>
+                    <br>
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.brand.$model" :class="{'border-rose-500 border-solid border': $v.brand.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.brand.$error">
+                        <br>
+                        <!-- <span :key="index" v-if="joiValidationErrors.brand.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.brand.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                    </template>
+                </div>
+                <br>
+
+                <div>
+                    <label class="font-semibold text-xl" for="">เลขทะเบียน :</label>
+                    <br>
+                    <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
+                    <input v-model="$v.numcar.$model" :class="{'border-rose-500 border-solid border': $v.numcar.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <template v-if=" $v.numcar.$error">
+                        <br>
+                        <!-- <span :key="index" v-if="joiValidationErrors.numcar.has('string.justalpha')" class="text-red-600"></span> -->
+                        <p class="text-rose-500" v-if="!$v.numcar.required">กรุณากรอกชื่อให้เรียบร้อย</p>
+                    </template>
+                </div>
+                <br>
+
+
             </div>
-            <router-link to="/login_riders">
-                <a onclick="alert('สร้างบัญชีผู้ใช้สำเร็จ')" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+            <router-link to="">
+                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
             </router-link>
             <br><br>
             <router-link to="/login_riders">
@@ -84,6 +144,56 @@
 </template>
 
 <script>
+    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+    export default {
+        data() {
+            return {
+                prefix: '',
+                firstname: '',
+                lastname: '',
+                phone: '',
+                pass: '',
+                sex: '',
+                role: '',
+                brand: '',
+                numcar: ''
+            }
+        },
+        validations: {
+            firstname: {
+                required, minLength: minLength(5), maxLength:maxLength(100)
+            }, 
+            lastname: {
+                required, minLength: minLength(5), maxLength:maxLength(100)
+            },
+            phone: {
+                required, minLength: minLength(5), maxLength: maxLength(100)
+            },
+            pass: {
+                required, minLength: minLength(6), maxLength: maxLength(20)
+            },
+            brand: {
+                required,
+            },
+            numcar: {
+                required,
+            }
+        },
+        methods: {
+            submit() {
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    let formData = new FormData();
+                    formData.append("firstname", this.firstname);
+                    formData.append("lastname", this.lastname);
+                    formData.append("phone", this.phone);
+                    formData.append("pass", this.pass);
+                    formData.append("brand", this.brand);
+                    formData.append("numcar", this.numcar);
+                }
+            }
+        }
+    }
 </script>
 
 

@@ -132,8 +132,6 @@
                     formData.append("lastname", this.lastname);
                     formData.append("phone", this.phone);
                     formData.append("pass", this.pass);
-
-
                 }
             }
         }
