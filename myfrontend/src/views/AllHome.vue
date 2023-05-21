@@ -1,27 +1,28 @@
 <template>
   <div>
     <NavbarAll></NavbarAll>
-    <br>
+    <br> <br>
     <!-- dialog -->
 
     <!-- Temperature -->
     <div :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''" class="justify-center content-center items-center flex flex-col">
 
-      <div class="bg-sky-500 rounded-2xl w-11/12 h-96">
+      <div class="bg-cyan-600 rounded-2xl w-11/12 ">
         <div class="p-4 flex items-center gap-3">
-          <i class="fa-solid fa-sun text-2xl text-white"></i>
-          <p class="text-2xl text-white ">สภาพอากาศวันนี้</p>
+          <i class="fa-solid fa-sun text-5xl text-white"></i>
+          <p class="text-3xl text-white ">สภาพอากาศวันนี้</p>
         </div>
 
         <div class="p-4">
-          <input v-model="query" @keypress="fetchWeather" class="bg-white border rounded-lg h-10 w-96 p-4" type="text" placeholder="ค้นหา..."/>
+          <input v-model="query" @keypress="fetchWeather" class="bg-white border rounded-lg h-5 w-96 p-4" type="text" placeholder="ค้นหา..."/>
         </div>
 
         <div class="grid grid-rows-2 text-center" v-if="typeof weather.main != 'undefined'">
-          <p>{{ weather.name }}, {{ weather.sys.country }}</p>
-          <p>{{ dateBuilder() }}</p>
-          <p>{{ Math.round(weather.main.temp) }}°c</p>
-          <p>{{ weather.weather[0].main }}</p>
+          <p class="text-4xl text-white">{{ weather.name }}, {{ weather.sys.country }}</p>
+          <p class="text-white">{{ dateBuilder() }}</p>
+          <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
+          <p class="text-7xl text-white">{{ Math.round(weather.main.temp) }}°c</p> 
+          <p class="text-white">{{ weather.weather[0].main }}</p> <br>
         </div>
 
 
@@ -100,7 +101,8 @@ export default {
       api_key: '0c5df38307315c580e0d1a06423475b7',
       url_base: 'https://api.openweathermap.org/data/2.5/',
       query: '',
-      weather: {}
+      weather: {},
+      icon: {}
     };
   },
   created(){
