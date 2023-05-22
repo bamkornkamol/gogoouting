@@ -6,7 +6,7 @@
       <div class="grid grid-cols-3">
         <div class="justify-center content-center items-center flex flex-col">
           <p class="text-7xl text-center m-12 indent-6">มาส่อมเบิ่ง<br>พี่วินกัน!!</p>
-          <select name="locations" id="locations"
+          <select v-model="$v.myselect.$model" name="locations" id="locations"
             class="w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
             <option value="">กดเพื่อเลือก</option>
             <option value="RNP">RNP</option>
@@ -20,6 +20,9 @@
             <option value="จินดา">จินดา</option>
             <option value="ตลาดนัดสุวรรณภูมิ">ตลาดนัดสุวรรณภูมิ</option>
           </select>
+          <template v-if=" $v.myselect.$error">
+            <p class="text-rose-500" v-if="!$v.myselect.required">กรุณาเลือกข้อมูลให้ถูกต้อง</p>
+          </template>
           <br>
           <button id="ttest" @click="location(test()); check=true" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded-full">
             ดูเลย !!
@@ -83,6 +86,7 @@
 <script>
     import NavbarAll from './NavbarAll.vue'
     import axios from "axios";
+    import { required} from 'vuelidate/lib/validators'
 
     export default {
         components: {
@@ -93,13 +97,25 @@
             vin:[],
             show_modal: false,
             show: [],
-            check:false
+            check:false,
+            myselect: ''
           };
+        },
+        validations: {
+          myselect: {
+            required
+          }
         },
         create(){
           
         },
         methods:{
+          submit(){
+            this.$v.$touch();
+              if (!this.$v.$invalid) {
+                  let formData = new FormData();
+                  formData.append("myselect", this.myselect);
+          }},
           test(){
             return document.getElementById('locations').value
           },
