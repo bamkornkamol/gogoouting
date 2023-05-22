@@ -2,6 +2,7 @@
 <div>
     <NavbarAll></NavbarAll>
     <div class="container w-11/12 mt-5">
+        <h1 class="text-4xl">คำนวณค่าโดยสาร</h1> <br>
         <div class="grid grid-cols-2 gap-6">
             <div class="bg-neutral-400 justify-center content-center items-center flex flex-col p-20 rounded-2xl">
                 <p class="text-8xl mb-12">TAXI</p>
@@ -33,7 +34,8 @@
                 <br>
                 <p class="text-6xl">100 บาท</p>
             </div>
-        </div>
+        </div> <br><br>
+
     </div>
 </div>
 </template>

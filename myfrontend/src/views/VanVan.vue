@@ -9,7 +9,7 @@
       <div id="app" class="grid grid-cols-5">
         <div class="col-span-1content-center items-center flex flex-col">
           <p class="text-center">วันนี้จะไปไหน ?</p>
-          <select class="my-3 w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <select v-model="$v.myselect.$model" class="my-3 w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="locations" name="loca">
             <option value="">กดเพื่อเลือก</option>
             <option value="ฟิวเจอร์">ฟิวเจอร์</option>
@@ -17,6 +17,9 @@
             <option value="ซีคอน">ซีคอน</option>
             <option value="มีนบุรี">มีนบุรี</option>
           </select>
+          <template v-if=" $v.myselect.$error">
+            <p class="text-rose-500" v-if="!$v.myselect.required">กรุณาเลือกข้อมูลให้ถูกต้อง</p>
+          </template>
 
           <button
             id="ttest"
@@ -108,6 +111,7 @@
 import NavbarAll from "../components/NavbarAll.vue";
 import axios from "axios";
 import Swal from 'sweetalert2'
+import { required} from 'vuelidate/lib/validators'
 
 export default {
   components: {
@@ -125,9 +129,15 @@ export default {
       book_time:null,
       book_price:null,
       book:false,
-      mybook:null
+      mybook:null,
+      myselect: ''
     };
   },
+  validations: {
+          myselect: {
+            required
+          }
+        },
   created(){
     axios.get("http://localhost:3000/bookVan/" + this.userId)
     .then((response) => {
