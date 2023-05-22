@@ -82,6 +82,7 @@
                     <table class="table-auto">
                       <tr>
                         <th>ปลายทาง</th>
+                        <th>ทะเบียนรถ</th>
                         <th>วันที่</th>
                         <th>ราคา</th>
                         <th>เวลาออก</th>
@@ -89,6 +90,7 @@
                       <tbody v-for="val in mybook" :key="val">
                         <tr>
                           <td class=" border border-neutral-500 p-2 px-5">{{val.location}}</td>
+                          <td class=" border border-neutral-500 p-2 px-5">{{val.van_id}}</td>
                           <td class=" border border-neutral-500 p-2 px-5">{{val.date}}</td>
                           <td class=" border border-neutral-500 p-2 px-5">{{val.price}}</td>
                           <td class=" border border-neutral-500 p-2 px-5">{{val.time}}</td>

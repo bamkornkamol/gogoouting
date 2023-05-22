@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 // multer ================================================================================= 
-
+//success
 router.post('/register/vin', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {
@@ -61,7 +61,29 @@ router.post('/register/vin', upload.single('img'), async(req, res) => {
         console.log('finally')    
     }
 })
+//success
+router.post('/login/vin', upload.single(), async(req, res) => {
+    const phone =  req.body.phone
+    const password = req.body.password
 
+    const conn = await pool.getConnection()
+    await conn.beginTransaction()
+    console.log(password, phone)
+
+    try{
+        const [data] = await pool.query("select * from rider_info where phone = ? and password = ?",[phone, password])
+        if(data.length == 0){
+            return res.json('เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง')
+        }
+        res.json(data)
+    }catch(err){
+        await conn.rollback()
+        console.log(err)
+    }finally{
+        conn.release()
+    }
+})
+//success
 router.post('/register/van', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {
@@ -100,6 +122,28 @@ router.post('/register/van', upload.single('img'), async(req, res) => {
     }finally{
         conn.release()
         console.log('finally')    
+    }
+})
+//success
+router.post('/login/van', upload.single(), async(req, res) => {
+    const phone =  req.body.phone
+    const password = req.body.password
+
+    const conn = await pool.getConnection()
+    await conn.beginTransaction()
+    console.log(password, phone)
+
+    try{
+        const [data] = await pool.query("select * from van_info where phone = ? and password = ?",[phone, password])
+        if(data.length == 0){
+            return res.json('เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง')
+        }
+        res.json(data)
+    }catch(err){
+        await conn.rollback()
+        console.log(err)
+    }finally{
+        conn.release()
     }
 })
 
@@ -225,7 +269,7 @@ router.put('/edit/imgprofile/van/:vanId', upload.single('img'), async(req, res) 
         console.log('finally')
     }
 })
-
+//success
 router.put('/setvin/:vinId', async(req, res) => {
     const vinId = req.params.vinId
 
@@ -234,7 +278,8 @@ router.put('/setvin/:vinId', async(req, res) => {
 
     try{
         const [data] = await pool.query("select status from rider_info where rider_info_id = ?",[vinId])
-        await pool.query("update rider_info set status=?",[data[0].status == 0 ? 1:0])
+        console.log(data[0].status)
+        await pool.query("update rider_info set status=? where rider_info_id = ?",[data[0].status == 0 ? '1':'0', vinId])
 
         conn.commit()
         res.status(200).send('success')
@@ -247,13 +292,12 @@ router.put('/setvin/:vinId', async(req, res) => {
         console.log('finally')
     }
 })
-
-router.post('/setround/:drivId', upload.single(), async(res, req) => {
-    const vanId = req.params.drivId
+//success
+router.post('/setround/:vanId', upload.single(), async(req, res) => {
+    const vanId = req.params.vanId
 
     const location = req.body.location
     const time = req.body.time
-    const date = req.body.date
     const price = req.body.price
     const seat = req.body.seat
     const van_id = req.body.van_id
@@ -262,8 +306,8 @@ router.post('/setround/:drivId', upload.single(), async(res, req) => {
     await conn.beginTransaction()
 
     try{
-        const [data] = await pool.query("insert into round_van(location, price, seat, date, time, van_id, create_by, create_time) values (?,?,?,?,?,?,?, CURRENT_TIMESTAMP)",
-        [location, price, seat, date, time, van_id, vanId])
+        const [data] = await pool.query("insert into round_van(location, price, seat, date, time, van_id, create_by, create_time) values (?,?,?,CURRENT_TIMESTAMP,?,?,?, CURRENT_TIMESTAMP)",
+        [location, price, seat, time, van_id, vanId])
 
         conn.commit()
         res.status(200).send('success')
@@ -276,8 +320,8 @@ router.post('/setround/:drivId', upload.single(), async(res, req) => {
         console.log('finally')
     }
 })
-
-router.put('/round/edit/:roundId', upload.single(), async(res, req) => {
+//success
+router.put('/round/edit/:roundId', upload.single(), async(req, res) => {
     const roundId = req.params.roundId
 
     const location = req.body.location

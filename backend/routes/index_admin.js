@@ -4,7 +4,7 @@ const pool = require("../config");
 const multer = require('multer');
 
 const router = express.Router();
-
+//success
 router.get('/vin/profile/:vinId', async(req, res) => {
     const vinId = req.params.vinId
     try{
@@ -32,10 +32,11 @@ router.get('/van/profile/:vanId', async(req, res) => {
         console.log(err)
     }
 })
-
-router.get('/van/round', async(req, res) => {
+//success
+router.get('/van/round/:vanId', async(req, res) => {
     try{
-        const [data] = await pool.query(`select * from round_van r join van_info v on(r.create_by = v.van_info_id)`)
+        const [data] = await pool.query(`select * from round_van r join van_info v on(r.create_by = v.van_info_id) where create_by = ?`,[req.params.vanId])
+        console.log(data)
         return res.json(data)
     }catch (err){
         console.log(err)

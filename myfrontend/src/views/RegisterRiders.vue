@@ -6,19 +6,6 @@
             <h1 class="text-5xl font-semibold text-center tracking-wide">Register Riders</h1> <br>
             <h3 class="text-zinc-500">สร้างบัญชีสำหรับพี่วิน</h3>
             <div class="p-8 content-left w-full">
-                <div class="grid grid-cols-3">
-                    <label class="font-semibold text-xl" for="">คำนำหน้าชื่อ :</label>
-                    <div class="flex items-center">
-                        <input type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นาย</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">นางสาว</label>
-                    </div>
-                </div>
-                <br>
-
                 <div>
                     <label class="font-semibold text-xl" for="">ชื่อ :</label>
                     <br>
@@ -65,7 +52,7 @@
                     <label class="font-semibold text-xl" for="">รหัสผ่าน :</label>
                     <br>
                     <!-- <input :class="{'text-red-600' : joiValidationErrors.firstname? true: false }" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text"> -->
-                    <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border': $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="text">
+                    <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border': $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 p-4 w-full" type="password">
                     <template v-if=" $v.pass.$error">
                         <br>
                         <!-- <span :key="index" v-if="joiValidationErrors.pass.has('string.justalpha')" class="text-red-600"></span> -->
@@ -80,29 +67,29 @@
                 <div class="grid grid-cols-3">
                     <label class="font-semibold text-xl" for="">เพศ :</label>
                     <div class="flex items-center">
-                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชาย</label>
+                        <input id="default-radio-1" type="radio" value="male" name="sex" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="sex-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">ชาย</label>
                     </div>
                     <div class="flex items-center">
-                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">หญิง</label>
+                        <input checked id="sex-2" type="radio" value="female" name="sex" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="sex-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">หญิง</label>
                     </div>
                 </div>
                 <br>
 
                 <label class="font-semibold text-xl" for="">ตำแหน่ง :</label>
-                <select class="bg-zinc-200 border rounded-xl h-12 w-full text-gray-400 indent-3" name="" id="">
+                <select class="bg-zinc-200 border rounded-xl h-12 w-full text-gray-400 indent-3" name="" id="location">
                     <option value="">เลือกตำแหน่งที่ต้องการ</option>
-                    <option value="">RNP</option>
-                    <option value="">Billian</option>
-                    <option value="">AJ Park</option>
-                    <option value="">เกกี</option>
-                    <option value="">ประตูข้างวิศวะ</option>
-                    <option value="">3 แยกวิศวะ</option>
-                    <option value="">คณะวิทย์</option>
-                    <option value="">FBT</option>
-                    <option value="">จินดา</option>
-                    <option value="">ตลาดสุวรรณภูมิ</option>
+                    <option value="RNP">RNP</option>
+                    <option value="Billian">Billian</option>
+                    <option value="AJ Park">AJ Park</option>
+                    <option value="เกกี">เกกี</option>
+                    <option value="ประตูข้างวิศวะ">ประตูข้างวิศวะ</option>
+                    <option value="3 แยกวิศวะ">3 แยกวิศวะ</option>
+                    <option value="คณะวิทย์">คณะวิทย์</option>
+                    <option value="FBT">FBT</option>
+                    <option value="จินดา">จินดา</option>
+                    <option value="ตลาดสุวรรณภูมิ">ตลาดสุวรรณภูมิ</option>
                 </select>
                 <br><br>
 
@@ -132,27 +119,29 @@
                         <p class="text-rose-500" v-if="!$v.numcar.minLength">ต้องมีอย่างน้อย 3 ตัวอักษร</p>
                     </template>
                 </div>
-                <br>
-
-
+                <input class="mt-5" type="file" name="file" ref="file" @change="handleFileUpload()">
             </div>
-            <router-link to="">
-                <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
-            </router-link>
-            <br><br>
-            <router-link to="/login_riders">
+
+            <a @click="submit" class="content-center bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full">สร้างบัญชี</a>
+
+            <div class="flex flex-row space-x-2 mt-5">
+                <router-link to="/login_riders">
                 <a class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับเข้าสู้หน้าเข้าสู่ระบบ</a>
-            </router-link>
-            <br>
-            <router-link to="/selectadminuser">
-                <a class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
-            </router-link>
+                </router-link>
+                <br>
+                <router-link to="/selectadminuser">
+                    <a class="bg-zinc-200 hover:bg-zinc-600 text-gray font-bold text-center py-2 px-2 rounded-full left-2">กลับสู่หน้าแรก</a>
+                </router-link>
+            </div>
+            
         </div>
     </div>
 </template>
 
 <script>
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+    import axios from "axios";
+    import Swal from 'sweetalert2'
 
     function mobile(value) {
         return !!value.match(/0[0-9]{9}/)
@@ -177,7 +166,8 @@
                 sex: '',
                 role: '',
                 brand: '',
-                numcar: ''
+                numcar: '',
+                file:null
             }
         },
         validations: {
@@ -201,16 +191,41 @@
             }
         },
         methods: {
+            handleFileUpload(){
+                this.file = this.$refs.file.files[0];
+            },
             submit() {
                 this.$v.$touch();
                 if (!this.$v.$invalid) {
                     let formData = new FormData();
-                    formData.append("firstname", this.firstname);
-                    formData.append("lastname", this.lastname);
+                    formData.append("fname", this.firstname);
+                    formData.append("lname", this.lastname);
                     formData.append("phone", this.phone);
-                    formData.append("pass", this.pass);
-                    formData.append("brand", this.brand);
-                    formData.append("numcar", this.numcar);
+                    formData.append("password", this.pass);
+                    formData.append("model", this.brand);
+                    formData.append("bike_id", this.numcar);
+                    formData.append('img', this.file)
+                    formData.append('sex',document.querySelector('input[name="sex"]:checked').value)
+                    formData.append('location',document.getElementById('location').value)
+                    axios.post("http://localhost:3000/register/vin", formData ,{
+                        headers: {
+                        'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        Swal.fire({
+                            position: 'top-start',
+                            icon: 'success',
+                            title: 'สร้างบัญชีผู้ใช้สำเร็จ',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            this.$router.push('/login_riders')
+                        })
+                    }).catch((err) => {
+                        console.log(err)
+                    })
                 }
             }
         }

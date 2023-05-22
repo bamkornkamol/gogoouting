@@ -45,12 +45,12 @@ const routes = [
     component: () => import('./views/GoogleMap.vue')
   },
   {
-    path: '/setqueuevin',
+    path: '/setqueuevin/:userid',
     name: 'Setqueue',
     component: () => import('./views/SetqueueVin.vue')
   },
   {
-    path: '/setqueuevan',
+    path: '/setqueuevan/:userid',
     name: 'Setqueue',
     component: () => import('./views/SetqueueVan.vue')
   },

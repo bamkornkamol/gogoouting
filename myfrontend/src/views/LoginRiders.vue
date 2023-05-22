@@ -18,7 +18,7 @@
 
                 <div>
                     <label class="" for="">รหัสผ่าน</label> <br>
-                    <input v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border': $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 w-96 p-4" type="text">
+                    <input id="passw" v-model="$v.pass.$model" :class="{'border-rose-500 border-solid border': $v.pass.$error}" class="bg-zinc-200 border rounded-xl h-12 w-96 p-4" type="password">
                     <template v-if=" $v.pass.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
@@ -49,25 +49,22 @@
 </template>
 
 <script>
-    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+    import { required} from 'vuelidate/lib/validators'
+    import axios from "axios";
+    import Swal from 'sweetalert2'
 
     function mobile(value) {
         return !!value.match(/0[0-9]{9}/)
     }
     
-    function complexPass(value) {
-            if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-                return false
-            } else {
-                return true
-            }
-        }
+
 
     export default {
         data() {
             return {
                 phone: '',
                 pass: '',
+                profile:null
             }
         },
         validations: {
@@ -75,7 +72,7 @@
                 required, mobile: mobile
             },
             pass: {
-                required, minLength: minLength(5), maxLength:maxLength(20), complex: complexPass
+                required
             }
             
         },
@@ -83,9 +80,33 @@
             submit() {
                 this.$v.$touch();
                 if (!this.$v.$invalid) {
+                    let passw = document.getElementById('passw').value
                     let formData = new FormData();
                     formData.append("phone", this.phone);
-                    formData.append("pass", this.pass);
+                    formData.append("password", passw);
+                    axios.post("http://localhost:3000/login/vin", formData ,{
+                        headers: {
+                        'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        this.profie = response.data
+                        if(this.profie == 'เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง'){
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
+                            this.$router.push('/setqueuevin/'+ this.profie[0].rider_info_id)
+                        }
+                        
+                    }).catch((err) => {
+                        console.log(err)
+                    })
                 }
             }
         }

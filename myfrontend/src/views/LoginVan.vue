@@ -6,12 +6,11 @@
             <br>
             <div class="justify-center content-center items-center flex flex-col">
                 <div>
-                    <label class="" for="">อีเมล</label> <br>
-                    <input v-model="$v.email.$model" :class="{'border-rose-500 border-solid border': $v.email.$error}" class="bg-zinc-200 border rounded-xl h-12 w-96 p-4" type="text">
-                    <template v-if=" $v.email.$error">
+                    <label class="" for="">เบอร์โทรศัพท์</label> <br>
+                    <input v-model="$v.phone.$model" :class="{'border-rose-500 border-solid border': $v.phone.$error}" class="bg-zinc-200 border rounded-xl h-12 w-96 p-4" type="text">
+                    <template v-if=" $v.phone.$error">
                         <br>
-                        <p class="text-rose-500" v-if="!$v.email.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
-                        <p class="text-rose-500" v-if="!$v.email.email">อีเมลไม่ถูกต้อง</p>
+                        <p class="text-rose-500" v-if="!$v.phone.required">กรุณากรอกอีเมลให้เรียบร้อย</p>
                     </template>
                 </div>
                 <br>
@@ -22,7 +21,6 @@
                     <template v-if=" $v.pass.$error">
                         <br>
                         <p class="text-rose-500" v-if="!$v.pass.required">กรุณากรอกรหัสผ่านให้เรียบร้อย</p>
-                        <p class="text-rose-500" v-if="!$v.pass.minLength">ต้องมีอย่างน้อย 5 ตัวอักษร</p>
                     </template>
                 </div>
             </div>
@@ -48,29 +46,24 @@
 </template>
 
 <script>
-    import { required, minLength, email } from 'vuelidate/lib/validators'
-
-    function complexPass(value) {
-            if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
-                return false
-            } else {
-                return true
-            }
-        }
+    import { required } from 'vuelidate/lib/validators'
+    import axios from "axios";
+    import Swal from 'sweetalert2'
 
     export default {
         data() {
             return {
-                email: '',
+                phone: '',
                 pass: '',
+                profile:null
             }
         },
         validations: {
-            email: {
-                required, email
+            phone: {
+                required
             },
             pass: {
-                required, minLength: minLength(5), complex: complexPass
+                required
             }
             
         },
@@ -79,8 +72,31 @@
                 this.$v.$touch();
                 if (!this.$v.$invalid) {
                     let formData = new FormData();
-                    formData.append("email", this.email);
-                    formData.append("pass", this.pass);
+                    formData.append("phone", this.phone);
+                    formData.append("password", this.pass);
+                    axios.post("http://localhost:3000/login/van", formData ,{
+                        headers: {
+                        'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        this.profie = response.data
+                        if(this.profie == 'เบอร์โทรศัพท์หรือรหัสผ่านไม่ถูกต้อง'){
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
+                            this.$router.push('/setqueuevan/'+ this.profie[0].van_info_id)
+                        }
+                        
+                    }).catch((err) => {
+                        console.log(err)
+                    })
                 }
             }
         }
