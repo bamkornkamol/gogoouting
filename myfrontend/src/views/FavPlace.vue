@@ -126,7 +126,7 @@
 ></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-import NavbarAll from '../components/NavbarAll.vue'
+import NavbarAll from './NavbarAll.vue'
 export default {
     components: {
         NavbarAll

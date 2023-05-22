@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import NavbarAll from '../components/NavbarAll.vue'
+import NavbarAll from './NavbarAll.vue'
 
 export default {
     components: {

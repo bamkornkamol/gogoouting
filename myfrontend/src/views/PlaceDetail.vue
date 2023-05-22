@@ -74,9 +74,8 @@
                                 <div class="w-full">
                                     <p class="text-xs text-neutral-400">by {{review.first_name}} {{review.last_name}}</p>
                                 </div>
-                                
                                 <div class="flex flex-row justify-end content-end items-end space-x-3 mr-2">
-                                    <button @click="del(review.id)"><i class="fa-solid fa-trash"></i></button>
+                                    <button v-if="review.user_id == userId" @click="del(review.id)"><i class="fa-solid fa-trash"></i></button>
                                     <!-- <button><i class="fa-solid fa-pen-to-square"></i></button> -->
                                     <button @click="addlike(review.id)"><i class="far fa-heart"></i> {{review.like}} </button>
                                 </div>
@@ -111,7 +110,7 @@
     }
 </style>
 <script>
-    import NavbarAll from '../components/NavbarAll.vue'
+    import NavbarAll from './NavbarAll.vue'
     // import Swal from 'sweetalert2'
     import axios from "axios";
     export default {
@@ -121,7 +120,7 @@
             return {
                 detail:null,
                 reviews:null,
-                userId:3,
+                userId: this.$route.params.userid,
             };
         },
         created(){
@@ -145,7 +144,7 @@
                 console.log(this.userId)
                 
                 let formData = new FormData();
-                formData.append('star', document.querySelector('input[name="bank"]:checked').value)
+                formData.append('star', document.querySelector('input[name="bank"]:checked').value? document.querySelector('input[name="bank"]:checked').value:0)
                 formData.append('review', document.getElementById('rew').value)
 
                 console.log(formData)
@@ -157,6 +156,14 @@
                 })
                 .then((response) => {
                     console.log(response)
+                    axios.get("http://localhost:3000/place/detail/" + this.$route.params.placeId)
+                    .then((response) => {
+                        this.detail = response.data.place_dt
+                        this.reviews = response.data.review
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
                 }).catch((err) => {
                     console.log(err)
                 })

@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import NavbarAll from '../components/NavbarAll.vue'
+import NavbarAll from './NavbarAll.vue'
 import axios from "axios";
 import Swal from 'sweetalert2'
 
@@ -109,7 +109,7 @@ export default {
         return {
             profiles:null,
             favplaces:null,
-            userId:3,
+            userId: this.$route.params.userid,
             show_modal: false,
             show: [],
             swap: true,

@@ -81,7 +81,7 @@
 </template>
 
 <script>
-    import NavbarAll from '../components/NavbarAll.vue'
+    import NavbarAll from './NavbarAll.vue'
     import axios from "axios";
 
     export default {

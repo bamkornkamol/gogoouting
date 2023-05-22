@@ -40,7 +40,7 @@ const routes = [
     component: () => import('./views/LoginVan.vue')
   },
   {
-    path: '/googlemap',
+    path: '/googlemap/:userid',
     name: 'googlemap',
     component: () => import('./views/GoogleMap.vue')
   },
@@ -55,7 +55,7 @@ const routes = [
     component: () => import('./views/SetqueueVan.vue')
   },
   {
-    path: '/home',
+    path: '/home/:userid',
     name: 'Home',
     component: () => import('./views/AllHome.vue')
   },
@@ -65,12 +65,12 @@ const routes = [
     component: () => import('./views/FavPlace.vue')
   },
   {
-    path: '/van',
+    path: '/van/:userid',
     name: 'Van',
     component: () => import('./views/VanVan.vue')
   },
   {
-    path: '/vin',
+    path: '/vin/:userid',
     name: 'Vin',
     component: () => import('./views/VinVin.vue')
   },
@@ -80,12 +80,12 @@ const routes = [
     component: () => import('./views/SelectAdminUser.vue')
   },
   {
-    path: '/profile',
+    path: '/profile/:userid',
     name: 'profile',
     component: () => import('./views/ProfileUser.vue')
   },
   {
-    path: '/placedetail/:placeId',
+    path: '/placedetail/:placeId/:userid',
     name: 'placedetail',
     component: () => import('./views/PlaceDetail.vue')
   },

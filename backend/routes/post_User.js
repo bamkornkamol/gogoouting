@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 // multer ================================================================================= 
-
+//success
 router.post('/register', upload.single('img'), async(req, res) => {
     const file = req.file
     if (!file) {
@@ -145,6 +145,28 @@ router.post('/review/:placeId/:userId', upload.single(), async(req, res) => {
     }finally{
         conn.release()
         console.log('finally')
+    }
+})
+
+router.post('/login', upload.single(), async(req, res) => {
+    const email =  req.body.email
+    const password = req.body.password
+
+    const conn = await pool.getConnection()
+    await conn.beginTransaction()
+    console.log(password, email)
+
+    try{
+        const [data] = await pool.query("select * from user where email = ? and password = ?",[email, password])
+        if(data.length == 0){
+            return res.json('อีเมลหรือรหัสผ่านไม่ถูกต้อง')
+        }
+        res.json(data)
+    }catch(err){
+        await conn.rollback()
+        console.log(err)
+    }finally{
+        conn.release()
     }
 })
 

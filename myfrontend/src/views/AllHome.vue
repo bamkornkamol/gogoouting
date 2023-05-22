@@ -48,7 +48,7 @@
         <div v-for="(sug_place, index) in sug_place" :key="index">
           <div>
             <div  class="max-w-xs rounded overflow-hidden shadow-lg hover:shadow-xl">
-              <button><img  @click="$router.push('/placedetail/' + sug_place.id)" class="w-full" :src="'http://localhost:3000/' + sug_place.image_file_path" alt=""></button>
+              <button><img  @click="$router.push('/placedetail/' + sug_place.id+'/'+userId)" class="w-full" :src="'http://localhost:3000/' + sug_place.image_file_path" alt=""></button>
               
               <div class="px-5 py-4">
                 <div class="font-bold text-xl mb-2">{{sug_place.place_name}}</div>
@@ -83,7 +83,7 @@
 ></script>
 <script>
 
-import NavbarAll from "../components/NavbarAll.vue";
+import NavbarAll from "./NavbarAll.vue";
 import axios from "axios";
 
 export default {
@@ -100,7 +100,7 @@ export default {
       query: '',
       weather: {},
       icon: {},
-      userId:3
+      userId:this.$route.params.userid
     };
   },
   created(){

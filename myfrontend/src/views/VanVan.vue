@@ -92,10 +92,6 @@
                         </tr>
                       </tbody>
                     </table>
-                    <!-- <p> : </p>
-                    <p> : </p>
-                    <p> :  บาท</p>
-                    <p> : </p> -->
                   </div>
                 </section>
             </div>
@@ -105,7 +101,7 @@
 </template>
 
 <script>
-import NavbarAll from "../components/NavbarAll.vue";
+import NavbarAll from "./NavbarAll.vue";
 import axios from "axios";
 import Swal from 'sweetalert2'
 
@@ -118,7 +114,7 @@ export default {
       r_van: null,
       show_modal: false,
       show: [],
-      userId:3,
+      userId:this.$route.params.userid,
       file:null,
       roundvan:null,
       book_round:null,
@@ -163,6 +159,13 @@ export default {
                     timer: 3000
                 }).then(() => {
                   this.book = false
+                  axios.get("http://localhost:3000/bookVan/" + this.userId)
+                  .then((response) => {
+                    this.mybook = response.data
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                  })
                 })
             }).catch((err) => {
                 console.log(err)
